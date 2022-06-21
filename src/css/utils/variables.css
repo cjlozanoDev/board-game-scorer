@@ -1,7 +1,7 @@
 :root {
   /* colors */
-  --color-primary: "#1B2430";
-  --color-secondary: "#51557E";
-  --color-purple-app: "#816797";
-  --color-beige-app: "#D6D5A8";
+  --color-primary: #51557e;
+  --color-secondary: #1b2430;
+  --color-purple-app: #816797;
+  --color-beige-app: #d6d5a8;
 }

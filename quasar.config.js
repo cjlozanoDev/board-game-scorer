@@ -38,7 +38,7 @@ module.exports = configure(function (/* ctx */) {
       // 'mdi-v5',
       // 'fontawesome-v6',
       // 'eva-icons',
-      // 'themify',
+      "themify",
       // 'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
@@ -87,8 +87,8 @@ module.exports = configure(function (/* ctx */) {
     framework: {
       config: {
         brand: {
-          primary: "#1B2430",
-          secondary: "#51557E",
+          primary: "#51557E",
+          secondary: "#1B2430",
           purpleApp: "#816797",
           beigeApp: "#D6D5A8",
         },
