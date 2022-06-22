@@ -38,12 +38,13 @@
       </q-input>
 
       <div class="login-page__box__actions">
-        <q-btn
+        <ButtonBsg
           color="primary"
           class="login-page__box__actions__button-entry"
           label="Entrar"
+          @click="saludar('carlos')"
         />
-        <q-btn :no-caps="true" flat label="Regístrate" />
+        <ButtonBsg :no-caps="true" flat label="Regístrate" />
       </div>
     </div>
 
@@ -57,9 +58,13 @@
 
 <script>
 import { ref } from "vue";
+import ButtonBsg from "src/components/elements/ButtonBgs.vue";
 
 export default {
   name: "LoginPage",
+  components: {
+    ButtonBsg,
+  },
   setup() {
     const textInfo = ref(
       "Tu app para llevar las puntuaciones de tus partidas de juegos mesa, estadísticas y mucho más"
@@ -68,11 +73,15 @@ export default {
     const password = ref("");
     const isPwd = ref(true);
 
+    const saludar = (nombre) => {
+      alert("hola", nombre);
+    };
     return {
       email,
       password,
       isPwd,
       textInfo,
+      saludar,
     };
   },
 };
