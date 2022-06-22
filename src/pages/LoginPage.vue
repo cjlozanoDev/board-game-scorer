@@ -1,6 +1,17 @@
 <template>
   <q-page class="login-page" padding>
-    <h3>¡Hola!</h3>
+    <div class="login-page__block-info">
+      <div class="login-page__block-info__title">
+        <h2>¡Hola!</h2>
+      </div>
+
+      <div class="login-page__block-info__text">
+        <p class="text-center">
+          {{ textInfo }}
+        </p>
+      </div>
+    </div>
+
     <div class="login-page__box">
       <q-input color="secondary" v-model="email" label="Email">
         <template v-slot:prepend>
@@ -35,6 +46,12 @@
         <q-btn :no-caps="true" flat label="Regístrate" />
       </div>
     </div>
+
+    <div class="login-page__text-info-inferior">
+      <p class="text-center">
+        {{ textInfo }}
+      </p>
+    </div>
   </q-page>
 </template>
 
@@ -44,6 +61,9 @@ import { ref } from "vue";
 export default {
   name: "LoginPage",
   setup() {
+    const textInfo = ref(
+      "Tu app para llevar las puntuaciones de tus partidas de juegos mesa, estadísticas y mucho más"
+    );
     const email = ref("");
     const password = ref("");
     const isPwd = ref(true);
@@ -52,6 +72,7 @@ export default {
       email,
       password,
       isPwd,
+      textInfo,
     };
   },
 };
@@ -66,7 +87,9 @@ export default {
   background-color: var(--color-primary);
   color: #fff;
 }
+
 .login-page__box {
+  max-width: 500px;
   width: 80%;
   padding: 30px;
   background: #fff;
@@ -84,6 +107,16 @@ export default {
   width: 100%;
   margin-bottom: 20px;
 }
+.login-page__block-info__text,
+.login-page__text-info-inferior {
+  font-size: 1.5em;
+}
+.login-page__block-info__text {
+  display: none;
+}
+.login-page__text-info-inferior {
+  margin-top: 20px;
+}
 
 @media (min-width: 600px) {
   .login-page__box {
@@ -91,8 +124,20 @@ export default {
   }
 }
 @media (min-width: 1024px) {
-  .login-page__box {
-    width: 40%;
+  .login-page {
+    flex-direction: row;
+    gap: 50px;
+  }
+  .login-page__text-info-inferior {
+    display: none;
+  }
+  .login-page__block-info__text {
+    display: block;
+  }
+  .login-page__block-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>
