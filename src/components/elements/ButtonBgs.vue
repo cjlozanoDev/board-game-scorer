@@ -45,3 +45,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.q-btn {
+  padding: 15px;
+}
+</style>

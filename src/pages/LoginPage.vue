@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="login-page__box">
+    <div class="box-form__credentials-user">
       <q-input color="secondary" v-model="email" label="Email">
         <template v-slot:prepend>
           <q-icon name="ti-email" />
@@ -21,6 +21,7 @@
 
       <q-input
         v-model="password"
+        color="secondary"
         :type="isPwd ? 'password' : 'text'"
         label="Contraseña"
         class="q-mt-md"
@@ -37,14 +38,20 @@
         </template>
       </q-input>
 
-      <div class="login-page__box__actions">
+      <div class="box-form__credentials-user__actions">
         <ButtonBsg
-          color="primary"
-          class="login-page__box__actions__button-entry"
+          color="secondary"
+          class="box-form__credentials-user__actions__button-entry"
           label="Entrar"
           @click="saludar('carlos')"
         />
-        <ButtonBsg :no-caps="true" flat label="Regístrate" />
+        <ButtonBsg
+          :no-caps="true"
+          color="secondary"
+          flat
+          label="Regístrate"
+          to="signUp"
+        />
       </div>
     </div>
 
@@ -93,28 +100,8 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-primary);
   color: #fff;
-}
-
-.login-page__box {
-  max-width: 500px;
-  width: 80%;
-  padding: 30px;
-  background: #fff;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 8px 18px;
-  border-radius: 8px;
-}
-.login-page__box__actions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
-  color: #000;
-}
-.login-page__box__actions__button-entry {
-  width: 100%;
-  margin-bottom: 20px;
+  background-color: var(--color-primary);
 }
 .login-page__block-info__text,
 .login-page__text-info-inferior {
@@ -127,11 +114,6 @@ export default {
   margin-top: 20px;
 }
 
-@media (min-width: 600px) {
-  .login-page__box {
-    width: 60%;
-  }
-}
 @media (min-width: 1024px) {
   .login-page {
     flex-direction: row;

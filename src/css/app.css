@@ -7,3 +7,30 @@ body {
   width: 100%;
   margin: 0;
 }
+.box-form__credentials-user {
+  max-width: 500px;
+  width: 80%;
+  padding: 30px;
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 8px 18px;
+  border-radius: 8px;
+}
+.box-form__credentials-user .q-input {
+  margin-bottom: 20px;
+}
+.box-form__credentials-user__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #000;
+}
+.box-form__credentials-user__actions__button-entry {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 600px) {
+  .box-form__credentials-user {
+    width: 60%;
+  }
+}

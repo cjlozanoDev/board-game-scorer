@@ -87,10 +87,10 @@ module.exports = configure(function (/* ctx */) {
     framework: {
       config: {
         brand: {
-          primary: "#51557E",
-          secondary: "#1B2430",
-          purpleApp: "#816797",
-          beigeApp: "#D6D5A8",
+          primary: "#008f95",
+          secondary: "#e24e42",
+          mustardApp: "#e9b000",
+          blushApp: "#eB6E80",
         },
       },
 
