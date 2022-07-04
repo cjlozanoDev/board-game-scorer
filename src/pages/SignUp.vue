@@ -2,13 +2,13 @@
   <q-page class="sign-up" padding>
     <h2>Crea tu cuenta</h2>
     <div class="box-form__credentials-user">
-      <q-input color="secondary" label="Nombre">
+      <q-input v-model="name" color="secondary" label="Nombre">
         <template v-slot:prepend>
           <q-icon name="ti-user" />
         </template>
       </q-input>
 
-      <q-input color="secondary" label="Email">
+      <q-input v-model="email" color="secondary" label="Email">
         <template v-slot:prepend>
           <q-icon name="ti-email" />
         </template>
@@ -57,7 +57,7 @@
           color="secondary"
           class="box-form__credentials-user__actions__button-entry"
           label="Registrarme"
-          @click="saludar('carlos')"
+          @click="createUser('carlos')"
         />
       </div>
     </div>
@@ -66,6 +66,11 @@
 
 <script>
 import { ref } from "vue";
+import {
+  createUserWithEmailAndPasswordApi,
+  addUserInCollection,
+} from "src/api/auth";
+import { useRouter } from "vue-router";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
 
 export default {
@@ -74,14 +79,42 @@ export default {
     ButtonBsg,
   },
   setup() {
+    const router = useRouter();
+    const name = ref("");
+    const email = ref("");
     const password = ref("");
     const passwordConfirm = ref("");
     const isPwd = ref(true);
 
+    const createUser = () => {
+      createUserWithEmailAndPasswordApi(email.value, password.value)
+        .then((result) => {
+          const user = result.user;
+          addUserInCollection(name.value, email.value, user.uid)
+            .then(() => {
+              console.log("hola");
+              goToHome();
+            })
+            .catch((error) => {
+              console.log("error al guardar ", error);
+            });
+        })
+        .catch((error) => {
+          console.log("error es:", error);
+        });
+    };
+
+    const goToHome = () => {
+      router.push({ path: "/home" });
+    };
+
     return {
+      name,
+      email,
       password,
       passwordConfirm,
       isPwd,
+      createUser,
     };
   },
 };

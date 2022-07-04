@@ -72,8 +72,7 @@
 <script>
 import { ref } from "vue";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "../api/firebase";
+import { accessWithGoogleApi } from "src/api/auth";
 import { useRouter } from "vue-router";
 
 export default {
@@ -91,16 +90,10 @@ export default {
     const isPwd = ref(true);
 
     const accessWithGoogle = () => {
-      const provider = new GoogleAuthProvider();
-
-      signInWithPopup(auth, provider)
+      accessWithGoogleApi()
         .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
           const user = result.user;
-          console.log(user);
-          irAHome();
-
-          // ...
+          goToHome();
         })
         .catch((error) => {
           console.log("error es:", error);
@@ -109,7 +102,7 @@ export default {
     const saludar = (nombre) => {
       alert("hola", nombre);
     };
-    const irAHome = () => {
+    const goToHome = () => {
       router.push({ path: "/home" });
     };
     return {
