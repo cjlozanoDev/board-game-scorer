@@ -46,6 +46,12 @@
           @click="saludar('carlos')"
         />
         <ButtonBsg
+          class="box-form__credentials-user__actions__button-entry--google"
+          label="Entrar con Google"
+          icon="ti-google"
+          @click="saludar('carlos')"
+        />
+        <ButtonBsg
           :no-caps="true"
           color="secondary"
           flat

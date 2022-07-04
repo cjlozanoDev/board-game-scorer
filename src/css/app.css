@@ -24,9 +24,13 @@ body {
   align-items: center;
   color: #000;
 }
-.box-form__credentials-user__actions__button-entry {
+.box-form__credentials-user__actions__button-entry,
+.box-form__credentials-user__actions__button-entry--google {
   width: 100%;
   margin-bottom: 20px;
+}
+.box-form__credentials-user__actions__button-entry--google {
+  background-color: #4185f4 !important;
 }
 
 @media (min-width: 600px) {

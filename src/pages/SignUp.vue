@@ -59,6 +59,12 @@
           label="Registrarme"
           @click="saludar('carlos')"
         />
+        <ButtonBsg
+          class="box-form__credentials-user__actions__button-entry--google"
+          label="Registrarme con Google"
+          icon="ti-google"
+          @click="saludar('carlos')"
+        />
       </div>
     </div>
   </q-page>
