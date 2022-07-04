@@ -49,7 +49,7 @@
           class="box-form__credentials-user__actions__button-entry--google"
           label="Entrar con Google"
           icon="ti-google"
-          @click="saludar('carlos')"
+          @click="accessWithGoogle"
         />
         <ButtonBsg
           :no-caps="true"
@@ -72,6 +72,9 @@
 <script>
 import { ref } from "vue";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth } from "../api/firebase";
+import { useRouter } from "vue-router";
 
 export default {
   name: "LoginPage",
@@ -79,6 +82,7 @@ export default {
     ButtonBsg,
   },
   setup() {
+    const router = useRouter();
     const textInfo = ref(
       "Tu app para llevar las puntuaciones de tus partidas de juegos mesa, estadísticas y mucho más"
     );
@@ -86,8 +90,27 @@ export default {
     const password = ref("");
     const isPwd = ref(true);
 
+    const accessWithGoogle = () => {
+      const provider = new GoogleAuthProvider();
+
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const user = result.user;
+          console.log(user);
+          irAHome();
+
+          // ...
+        })
+        .catch((error) => {
+          console.log("error es:", error);
+        });
+    };
     const saludar = (nombre) => {
       alert("hola", nombre);
+    };
+    const irAHome = () => {
+      router.push({ path: "/home" });
     };
     return {
       email,
@@ -95,6 +118,7 @@ export default {
       isPwd,
       textInfo,
       saludar,
+      accessWithGoogle,
     };
   },
 };
