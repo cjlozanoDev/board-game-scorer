@@ -1,0 +1,7 @@
+{
+  "appId": "capacitor.board.game.scorer",
+  "appName": "Board Game Scorer",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "www"
+}

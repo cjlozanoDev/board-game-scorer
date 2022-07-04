@@ -70,9 +70,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
-import { accessWithGoogleApi } from "src/api/auth";
+import { accessWithGoogleApi, getRedirectResultApi } from "src/api/auth";
 import { useRouter } from "vue-router";
 
 export default {
@@ -81,6 +81,11 @@ export default {
     ButtonBsg,
   },
   setup() {
+    onMounted(() => {
+      getRedirectResultApi().then((result) => {
+        if (result) goToHome();
+      });
+    });
     const router = useRouter();
     const textInfo = ref(
       "Tu app para llevar las puntuaciones de tus partidas de juegos mesa, estadísticas y mucho más"
@@ -91,8 +96,7 @@ export default {
 
     const accessWithGoogle = () => {
       accessWithGoogleApi()
-        .then((result) => {
-          const user = result.user;
+        .then(() => {
           goToHome();
         })
         .catch((error) => {

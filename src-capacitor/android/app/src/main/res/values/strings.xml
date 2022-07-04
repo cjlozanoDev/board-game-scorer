@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Board Game Scorer</string>
+    <string name="title_activity_main">Board Game Scorer</string>
+    <string name="package_name">capacitor.board.game.scorer</string>
+    <string name="custom_url_scheme">capacitor.board.game.scorer</string>
+</resources>

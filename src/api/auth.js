@@ -1,5 +1,8 @@
+import { Platform } from "quasar";
 import {
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
 } from "firebase/auth";
@@ -11,11 +14,17 @@ import { auth, db } from "../api/firebase";
 const accessWithGoogleApi = () => {
   const provider = new GoogleAuthProvider();
 
-  return signInWithPopup(auth, provider);
+  return Platform.is.mobile
+    ? signInWithRedirect(auth, provider)
+    : signInWithPopup(auth, provider);
 };
 
 const createUserWithEmailAndPasswordApi = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
+};
+
+const getRedirectResultApi = () => {
+  return getRedirectResult(auth);
 };
 
 const addUserInCollection = (name, email, userUid) => {
@@ -30,4 +39,5 @@ export {
   accessWithGoogleApi,
   createUserWithEmailAndPasswordApi,
   addUserInCollection,
+  getRedirectResultApi,
 };
