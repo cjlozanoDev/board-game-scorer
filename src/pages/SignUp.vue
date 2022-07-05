@@ -66,6 +66,13 @@
           </template>
         </q-input>
 
+        <q-banner
+          v-if="showErrorBanner"
+          inline-actions
+          class="sign-up__banner-warning"
+        >
+          {{ messageErrorBanner }}
+        </q-banner>
         <div class="box-form__credentials-user__actions">
           <ButtonBsg
             type="submit"
@@ -81,6 +88,7 @@
 
 <script>
 import { ref } from "vue";
+import { errors } from "../utils/error-messages";
 import {
   createUserWithEmailAndPasswordApi,
   addUserInCollectionApi,
@@ -100,6 +108,7 @@ export default {
     const password = ref("");
     const passwordConfirm = ref("");
     const isPwd = ref(true);
+    const showErrorBanner = ref(false);
 
     const messageNameForm = ref("El nombre es necesario para registrarse");
     const messageMailForm = ref("El email es necesario para registrarse");
@@ -107,6 +116,7 @@ export default {
       "La contraseña es necesario para registrarse"
     );
     const messagePasswordConfirm = ref("La contraseña no coincide");
+    const messageErrorBanner = ref("");
 
     const createUser = () => {
       if (isValidateForm()) {
@@ -115,7 +125,7 @@ export default {
             const user = result.user;
             addUserInCollectionApi(name.value, email.value, user.uid)
               .then(() => {
-                console.log("hola");
+                showErrorBanner.value = false;
                 goToHome();
               })
               .catch((error) => {
@@ -123,7 +133,8 @@ export default {
               });
           })
           .catch((error) => {
-            console.log("error es:", error);
+            messageErrorBanner.value = errors[error.code];
+            showErrorBanner.value = true;
           });
       }
     };
@@ -201,6 +212,8 @@ export default {
       messageMailForm,
       messagePasswordForm,
       messagePasswordConfirm,
+      messageErrorBanner,
+      showErrorBanner,
     };
   },
 };
@@ -214,5 +227,9 @@ export default {
   justify-content: center;
   align-items: center;
   color: #fff;
+}
+.sign-up__banner-warning {
+  background: var(--color-mustard-app);
+  margin-bottom: 20px;
 }
 </style>
