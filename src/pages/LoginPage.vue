@@ -72,7 +72,11 @@
 <script>
 import { onMounted, ref } from "vue";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
-import { accessWithGoogleApi, getRedirectResultApi } from "src/api/auth";
+import {
+  accessWithGoogleApi,
+  getRedirectResultApi,
+  addUserInCollectionApi,
+} from "src/api/auth";
 import { useRouter } from "vue-router";
 
 export default {
@@ -83,7 +87,9 @@ export default {
   setup() {
     onMounted(() => {
       getRedirectResultApi().then((result) => {
-        if (result) goToHome();
+        if (result) {
+          addUserInCollection(result.user);
+        }
       });
     });
     const router = useRouter();
@@ -96,13 +102,24 @@ export default {
 
     const accessWithGoogle = () => {
       accessWithGoogleApi()
-        .then(() => {
-          goToHome();
+        .then((result) => {
+          addUserInCollection(result.user);
         })
         .catch((error) => {
           console.log("error es:", error);
         });
     };
+
+    const addUserInCollection = (user) => {
+      addUserInCollectionApi(user.displayName, user.email, user.uid)
+        .then(() => {
+          goToHome();
+        })
+        .catch((error) => {
+          console.log("error al guardar", error);
+        });
+    };
+
     const saludar = (nombre) => {
       alert("hola", nombre);
     };

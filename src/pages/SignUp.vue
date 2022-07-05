@@ -68,7 +68,7 @@
 import { ref } from "vue";
 import {
   createUserWithEmailAndPasswordApi,
-  addUserInCollection,
+  addUserInCollectionApi,
 } from "src/api/auth";
 import { useRouter } from "vue-router";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
@@ -90,7 +90,7 @@ export default {
       createUserWithEmailAndPasswordApi(email.value, password.value)
         .then((result) => {
           const user = result.user;
-          addUserInCollection(name.value, email.value, user.uid)
+          addUserInCollectionApi(name.value, email.value, user.uid)
             .then(() => {
               console.log("hola");
               goToHome();

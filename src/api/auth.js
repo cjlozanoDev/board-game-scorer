@@ -27,7 +27,7 @@ const getRedirectResultApi = () => {
   return getRedirectResult(auth);
 };
 
-const addUserInCollection = (name, email, userUid) => {
+const addUserInCollectionApi = (name, email, userUid) => {
   return setDoc(doc(db, "users", userUid), {
     name,
     email,
@@ -38,6 +38,6 @@ const addUserInCollection = (name, email, userUid) => {
 export {
   accessWithGoogleApi,
   createUserWithEmailAndPasswordApi,
-  addUserInCollection,
+  addUserInCollectionApi,
   getRedirectResultApi,
 };
