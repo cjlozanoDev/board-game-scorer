@@ -16,8 +16,10 @@ body {
   align-items: center;
   color: #fff;
 }
-.login-page::before,
-.sign-up::before {
+.bg-img-main {
+  position: relative;
+}
+.bg-img-main::before {
   content: "";
   position: absolute;
   background: url("../assets/img/backgroundImgMain.png");
@@ -28,6 +30,7 @@ body {
   opacity: 0.75;
   z-index: -1;
 }
+
 .box-form__credentials-user {
   max-width: 500px;
   width: 90%;
@@ -55,17 +58,17 @@ body {
 }
 
 @media (min-width: 890px) {
-  .login-page::before,
-  .sign-up::before {
+  .bg-img-main::before {
     background-size: cover;
   }
 }
 @media (min-width: 1024px) {
-  .login-page::before,
-  .sign-up::before {
+  .bg-img-main::before {
     background: none;
   }
-  .login-page__block-info::before {
+  .bg-img-main__block-info::before,
+  .login-page__block-info::before,
+  .sign-up__block-info::before {
     content: "";
     position: absolute;
     background: url("../assets/img/backgroundImgMain.png");

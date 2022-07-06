@@ -1,15 +1,18 @@
 <template>
-  <q-page class="login-page" padding>
+  <q-page class="login-page bg-img-main" padding>
     <div class="login-page__block-info">
       <div class="login-page__block-info__title">
-        <h2 class="login-page__block-info__title__h2">¡Hola!</h2>
+        <h2 class="login-page__block-info__title__h2">¡Bienvenido!</h2>
       </div>
 
-      <div class="login-page__block-info__text">
-        <p class="text-center">
-          {{ textInfo }}
-        </p>
-      </div>
+      <q-toolbar class="text-center gt-sm">
+        <q-toolbar-title>
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+          </q-avatar>
+          <span> Board Game Scorer </span>
+        </q-toolbar-title>
+      </q-toolbar>
     </div>
 
     <div class="login-page__block__box">
@@ -62,11 +65,11 @@
       </div>
     </div>
 
-    <div class="login-page__text-info-inferior">
+    <!-- <div class="login-page__text-info-inferior">
       <p class="text-center q-ma-none">
         {{ textInfo }}
       </p>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
@@ -146,26 +149,10 @@ export default {
   margin-top: 20px;
   padding: 10px;
 }
-.login-page__block-info__text {
-  display: none;
-}
-.login-page__block-info__title__h2,
-.login-page__text-info-inferior,
-.login-page__block-info__text {
-  position: relative;
-}
-.login-page__block-info__title__h2::before,
-.login-page__text-info-inferior::before,
-.login-page__block-info__text::before {
-  content: "";
-  position: absolute;
-  background: #000;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  z-index: -1;
-  opacity: 0.6;
+.login-page__block-info {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .login-page__block__box {
@@ -183,13 +170,10 @@ export default {
   }
   .login-page__block-info {
     position: relative;
-    display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 10px;
     width: 50%;
     height: 100vh;
-    justify-content: center;
   }
   .login-page__text-info-inferior {
     display: none;
