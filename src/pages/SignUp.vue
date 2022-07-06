@@ -220,14 +220,6 @@ export default {
 </script>
 
 <style scoped>
-.sign-up {
-  background-color: var(--color-primary);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-}
 .sign-up__banner-warning {
   background: var(--color-mustard-app);
   margin-bottom: 20px;

@@ -2,7 +2,7 @@
   <q-page class="login-page" padding>
     <div class="login-page__block-info">
       <div class="login-page__block-info__title">
-        <h2>¡Hola!</h2>
+        <h2 class="login-page__block-info__title__h2">¡Hola!</h2>
       </div>
 
       <div class="login-page__block-info__text">
@@ -12,57 +12,58 @@
       </div>
     </div>
 
-    <div class="box-form__credentials-user">
-      <q-input color="secondary" v-model="email" label="Email">
-        <template v-slot:prepend>
-          <q-icon name="ti-email" />
-        </template>
-      </q-input>
+    <div class="login-page__block__box">
+      <div class="box-form__credentials-user">
+        <q-input v-model="email" label="Email">
+          <template v-slot:prepend>
+            <q-icon name="ti-email" />
+          </template>
+        </q-input>
 
-      <q-input
-        v-model="password"
-        color="secondary"
-        :type="isPwd ? 'password' : 'text'"
-        label="Contraseña"
-        class="q-mt-md"
-      >
-        <template v-slot:prepend>
-          <q-icon name="ti-key" />
-        </template>
-        <template v-slot:append>
-          <q-icon
-            :name="isPwd ? 'visibility_off' : 'visibility'"
-            class="cursor-pointer"
-            @click="isPwd = !isPwd"
+        <q-input
+          v-model="password"
+          :type="isPwd ? 'password' : 'text'"
+          label="Contraseña"
+          class="q-mt-md"
+        >
+          <template v-slot:prepend>
+            <q-icon name="ti-key" />
+          </template>
+          <template v-slot:append>
+            <q-icon
+              :name="isPwd ? 'visibility_off' : 'visibility'"
+              class="cursor-pointer"
+              @click="isPwd = !isPwd"
+            />
+          </template>
+        </q-input>
+
+        <div class="box-form__credentials-user__actions">
+          <ButtonBsg
+            color="secondary"
+            class="box-form__credentials-user__actions__button-entry"
+            label="Entrar"
+            @click="saludar('carlos')"
           />
-        </template>
-      </q-input>
-
-      <div class="box-form__credentials-user__actions">
-        <ButtonBsg
-          color="secondary"
-          class="box-form__credentials-user__actions__button-entry"
-          label="Entrar"
-          @click="saludar('carlos')"
-        />
-        <ButtonBsg
-          class="box-form__credentials-user__actions__button-entry--google"
-          label="Entrar con Google"
-          icon="ti-google"
-          @click="accessWithGoogle"
-        />
-        <ButtonBsg
-          :no-caps="true"
-          color="secondary"
-          flat
-          label="Regístrate"
-          to="signUp"
-        />
+          <ButtonBsg
+            class="box-form__credentials-user__actions__button-entry--google"
+            label="Entrar con Google"
+            icon="ti-google"
+            @click="accessWithGoogle"
+          />
+          <ButtonBsg
+            :no-caps="true"
+            color="secondary"
+            flat
+            label="Regístrate"
+            to="signUp"
+          />
+        </div>
       </div>
     </div>
 
     <div class="login-page__text-info-inferior">
-      <p class="text-center">
+      <p class="text-center q-ma-none">
         {{ textInfo }}
       </p>
     </div>
@@ -139,29 +140,56 @@ export default {
 </script>
 
 <style scoped>
-.login-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  background-color: var(--color-primary);
-}
 .login-page__block-info__text,
 .login-page__text-info-inferior {
   font-size: 1.5em;
+  margin-top: 20px;
+  padding: 10px;
 }
 .login-page__block-info__text {
   display: none;
 }
-.login-page__text-info-inferior {
-  margin-top: 20px;
+.login-page__block-info__title__h2,
+.login-page__text-info-inferior,
+.login-page__block-info__text {
+  position: relative;
+}
+.login-page__block-info__title__h2::before,
+.login-page__text-info-inferior::before,
+.login-page__block-info__text::before {
+  content: "";
+  position: absolute;
+  background: #000;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.login-page__block__box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
   .login-page {
     flex-direction: row;
-    gap: 50px;
+    justify-content: inherit;
+    padding: 0;
+  }
+  .login-page__block-info {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    width: 50%;
+    height: 100vh;
+    justify-content: center;
   }
   .login-page__text-info-inferior {
     display: none;
@@ -169,10 +197,10 @@ export default {
   .login-page__block-info__text {
     display: block;
   }
-  .login-page__block-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .login-page__block__box {
+    height: 100vh;
+    width: 50%;
+    padding: 20px;
   }
 }
 </style>
