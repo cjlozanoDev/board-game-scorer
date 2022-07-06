@@ -17,71 +17,80 @@
 
     <div class="login-page__block__box">
       <div class="box-form__credentials-user">
-        <q-input v-model="email" label="Email">
-          <template v-slot:prepend>
-            <q-icon name="ti-email" />
-          </template>
-        </q-input>
+        <q-form @submit.prevent="saludar()">
+          <q-input
+            lazy-rules
+            :rules="[() => validateEmail() || messageMailForm]"
+            v-model="email"
+            label="Email"
+          >
+            <template v-slot:prepend>
+              <q-icon name="ti-email" />
+            </template>
+          </q-input>
 
-        <q-input
-          v-model="password"
-          :type="isPwd ? 'password' : 'text'"
-          label="Contraseña"
-          class="q-mt-md"
-        >
-          <template v-slot:prepend>
-            <q-icon name="ti-key" />
-          </template>
-          <template v-slot:append>
-            <q-icon
-              :name="isPwd ? 'visibility_off' : 'visibility'"
-              class="cursor-pointer"
-              @click="isPwd = !isPwd"
+          <q-input
+            v-model="password"
+            :type="isPwd ? 'password' : 'text'"
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) ||
+                'La contraseña es obligatoria para entrar en la aplicación',
+            ]"
+            label="Contraseña"
+            class="q-mt-md"
+          >
+            <template v-slot:prepend>
+              <q-icon name="ti-key" />
+            </template>
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
+
+          <div class="box-form__credentials-user__actions">
+            <ButtonBsg
+              type="submit"
+              color="secondary"
+              class="box-form__credentials-user__actions__button-entry"
+              label="Entrar"
             />
-          </template>
-        </q-input>
-
-        <div class="box-form__credentials-user__actions">
-          <ButtonBsg
-            color="secondary"
-            class="box-form__credentials-user__actions__button-entry"
-            label="Entrar"
-            @click="saludar('carlos')"
-          />
-          <ButtonBsg
-            class="box-form__credentials-user__actions__button-entry--google"
-            label="Entrar con Google"
-            icon="ti-google"
-            @click="accessWithGoogle"
-          />
-          <ButtonBsg
-            :no-caps="true"
-            color="secondary"
-            flat
-            label="Regístrate"
-            to="signUp"
-          />
-        </div>
+            <ButtonBsg
+              class="box-form__credentials-user__actions__button-entry--google"
+              label="Entrar con Google"
+              icon="ti-google"
+              @click="accessWithGoogle"
+            />
+            <ButtonBsg
+              :no-caps="true"
+              class="box-form__credentials-user__actions__button-register"
+              color="secondary"
+              flat
+              label="Regístrate"
+              to="signUp"
+            />
+          </div>
+        </q-form>
       </div>
     </div>
-
-    <!-- <div class="login-page__text-info-inferior">
-      <p class="text-center q-ma-none">
-        {{ textInfo }}
-      </p>
-    </div> -->
   </q-page>
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
+import { onMounted, ref } from "vue";
 import {
   accessWithGoogleApi,
   getRedirectResultApi,
   addUserInCollectionApi,
 } from "src/api/auth";
 import { useRouter } from "vue-router";
+import { validateEmailRegex } from "../utils/validations-regex";
 
 export default {
   name: "LoginPage",
@@ -103,6 +112,9 @@ export default {
     const email = ref("");
     const password = ref("");
     const isPwd = ref(true);
+    const messageMailForm = ref(
+      "El email es necesario para entrar en la aplicación"
+    );
 
     const accessWithGoogle = () => {
       accessWithGoogleApi()
@@ -123,6 +135,24 @@ export default {
           console.log("error al guardar", error);
         });
     };
+    const validateText = (text) => {
+      return text.trim() && text.length > 0;
+    };
+    const validateEmail = () => {
+      const isTextValidate = validateText(email.value);
+      messageMailForm.value =
+        "El email es necesario para entrar en la aplicación";
+
+      if (!isTextValidate) {
+        return false;
+      }
+      if (!validateEmailRegex(email.value)) {
+        messageMailForm.value = "El email introducido no es válido";
+        return false;
+      }
+
+      return true;
+    };
 
     const saludar = (nombre) => {
       alert("hola", nombre);
@@ -135,8 +165,10 @@ export default {
       password,
       isPwd,
       textInfo,
+      messageMailForm,
       saludar,
       accessWithGoogle,
+      validateEmail,
     };
   },
 };
@@ -160,6 +192,9 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+}
+.box-form__credentials-user__actions__button-register {
+  text-decoration: underline;
 }
 
 @media (min-width: 1024px) {

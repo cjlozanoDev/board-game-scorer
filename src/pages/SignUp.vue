@@ -106,6 +106,7 @@ import {
   addUserInCollectionApi,
 } from "src/api/auth";
 import { useRouter } from "vue-router";
+import { validateEmailRegex } from "../utils/validations-regex";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
 
 export default {
@@ -180,7 +181,7 @@ export default {
         messageMailForm.value = "El email es necesario para registrarse";
         return false;
       }
-      if (!regexEmail.test(email.value)) {
+      if (!validateEmailRegex(email.value)) {
         messageMailForm.value = "El email introducido no es válido";
         return false;
       }
