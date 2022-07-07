@@ -2,6 +2,7 @@ import { Platform } from "quasar";
 import {
   signInWithPopup,
   signInWithRedirect,
+  signInWithEmailAndPassword,
   getRedirectResult,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -23,6 +24,10 @@ const createUserWithEmailAndPasswordApi = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
+const signInWithEmailAndPasswordApi = (email, password) => {
+  return signInWithEmailAndPassword(auth, email, password);
+};
+
 const getRedirectResultApi = () => {
   return getRedirectResult(auth);
 };
@@ -40,4 +45,5 @@ export {
   createUserWithEmailAndPasswordApi,
   addUserInCollectionApi,
   getRedirectResultApi,
+  signInWithEmailAndPasswordApi,
 };

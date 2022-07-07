@@ -17,7 +17,7 @@
 
     <div class="login-page__block__box">
       <div class="box-form__credentials-user">
-        <q-form @submit.prevent="saludar()">
+        <q-form @submit.prevent="signInWithEmailAndPassword()">
           <q-input
             lazy-rules
             :rules="[() => validateEmail() || messageMailForm]"
@@ -52,6 +52,13 @@
               />
             </template>
           </q-input>
+          <q-banner
+            v-if="showErrorBanner"
+            inline-actions
+            class="login-page__banner-warning"
+          >
+            {{ messageErrorBanner }}
+          </q-banner>
 
           <div class="box-form__credentials-user__actions">
             <ButtonBsg
@@ -83,11 +90,13 @@
 
 <script>
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
+import { errors } from "../utils/error-messages";
 import { onMounted, ref } from "vue";
 import {
   accessWithGoogleApi,
   getRedirectResultApi,
   addUserInCollectionApi,
+  signInWithEmailAndPasswordApi,
 } from "src/api/auth";
 import { useRouter } from "vue-router";
 import { validateEmailRegex } from "../utils/validations-regex";
@@ -112,9 +121,12 @@ export default {
     const email = ref("");
     const password = ref("");
     const isPwd = ref(true);
+    const showErrorBanner = ref(false);
+
     const messageMailForm = ref(
       "El email es necesario para entrar en la aplicación"
     );
+    const messageErrorBanner = ref("");
 
     const accessWithGoogle = () => {
       accessWithGoogleApi()
@@ -154,9 +166,18 @@ export default {
       return true;
     };
 
-    const saludar = (nombre) => {
-      alert("hola", nombre);
+    const signInWithEmailAndPassword = () => {
+      signInWithEmailAndPasswordApi(email.value, password.value)
+        .then(() => {
+          showErrorBanner.value = false;
+          goToHome();
+        })
+        .catch((error) => {
+          messageErrorBanner.value = errors[error.code];
+          showErrorBanner.value = true;
+        });
     };
+
     const goToHome = () => {
       router.push({ path: "/home" });
     };
@@ -166,9 +187,11 @@ export default {
       isPwd,
       textInfo,
       messageMailForm,
-      saludar,
+      messageErrorBanner,
+      showErrorBanner,
       accessWithGoogle,
       validateEmail,
+      signInWithEmailAndPassword,
     };
   },
 };

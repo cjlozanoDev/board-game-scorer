@@ -16,6 +16,11 @@ body {
   align-items: center;
   color: #fff;
 }
+.login-page__banner-warning,
+.sign-up__banner-warning {
+  background: var(--color-mustard-app);
+  margin-bottom: 20px;
+}
 .bg-img-main {
   position: relative;
 }
