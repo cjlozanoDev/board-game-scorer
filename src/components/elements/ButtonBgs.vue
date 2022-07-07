@@ -8,6 +8,9 @@
     :outline="outline"
     :rounded="rounded"
     :type="type"
+    :round="round"
+    :flat="flat"
+    :icon="icon"
   />
 </template>
 
@@ -46,6 +49,18 @@ export default {
     type: {
       type: String,
       default: "button",
+    },
+    round: {
+      type: Boolean,
+      default: false,
+    },
+    flat: {
+      type: Boolean,
+      default: false,
+    },
+    icon: {
+      type: String,
+      default: null,
     },
   },
 };
