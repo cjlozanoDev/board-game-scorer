@@ -3,6 +3,7 @@ import {
   signInWithPopup,
   signInWithRedirect,
   signInWithEmailAndPassword,
+  signOut,
   getRedirectResult,
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
@@ -39,6 +40,9 @@ const addUserInCollectionApi = (name, email, userUid) => {
     uid: userUid,
   });
 };
+const signOutApi = () => {
+  return signOut(auth);
+};
 
 export {
   accessWithGoogleApi,
@@ -46,4 +50,5 @@ export {
   addUserInCollectionApi,
   getRedirectResultApi,
   signInWithEmailAndPasswordApi,
+  signOutApi,
 };

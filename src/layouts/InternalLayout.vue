@@ -49,12 +49,12 @@
             <q-item-section> Send </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple>
+          <q-item @click="signOut" clickable v-ripple>
             <q-item-section avatar>
-              <q-icon name="drafts" />
+              <q-icon name="ti-shift-right" />
             </q-item-section>
 
-            <q-item-section> Drafts </q-item-section>
+            <q-item-section> Cerrar sesión </q-item-section>
           </q-item>
         </q-list>
       </q-scroll-area>
@@ -84,7 +84,6 @@
         <q-tab name="Partidas" icon="ti-game" label="partidas" />
         <q-tab name="Juegos" icon="ti-layout-grid4-alt" label="juegos" />
         <q-tab name="Buscar" icon="ti-search" label="buscar" />
-        <q-tab name="Buscar" icon="ti-search" label="buscar" />
       </q-tabs>
     </q-footer>
   </q-layout>
@@ -92,7 +91,9 @@
 
 <script>
 import { ref } from "vue";
+import { signOutApi } from "../api/auth";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
+import { useRouter } from "vue-router";
 
 export default {
   name: "InternalLayout",
@@ -102,6 +103,18 @@ export default {
   setup() {
     const leftDrawerOpen = ref(false);
     const tab = ref("Inicio");
+    const router = useRouter();
+
+    const signOut = () => {
+      signOutApi()
+        .then(() => {
+          router.push({ path: "/" });
+        })
+        .catch((err) => {
+          console.log("he entrado por el error");
+          console.log(err);
+        });
+    };
 
     const toggleLeftDrawer = () => {
       leftDrawerOpen.value = !leftDrawerOpen.value;
@@ -111,6 +124,7 @@ export default {
       tab,
       toggleLeftDrawer,
       leftDrawerOpen,
+      signOut,
     };
   },
 };
