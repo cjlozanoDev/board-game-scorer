@@ -60,7 +60,7 @@ export default {
     },
     icon: {
       type: String,
-      default: null,
+      default: undefined,
     },
   },
 };

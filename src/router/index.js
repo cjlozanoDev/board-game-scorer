@@ -33,5 +33,13 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
+  Router.beforeEach((to, from, next) => {
+    if (to.meta.Auth && !localStorage.getItem("signedin")) {
+      next({ path: "/", replace: true });
+    } else {
+      next();
+    }
+  });
+
   return Router;
 });

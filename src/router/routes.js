@@ -2,6 +2,13 @@ const routes = [
   {
     path: "/",
     name: "login",
+    beforeEnter: (to, from, next) => {
+      if (localStorage.getItem("signedin")) {
+        next({ path: "/home" });
+      } else {
+        next();
+      }
+    },
     component: () => import("layouts/LoginLayout.vue"),
     children: [
       { path: "", component: () => import("pages/LoginPage.vue") },
@@ -11,6 +18,9 @@ const routes = [
   {
     path: "/home",
     name: "Home",
+    meta: {
+      Auth: true,
+    },
     component: () => import("layouts/InternalLayout.vue"),
     children: [{ path: "", component: () => import("pages/HomePage.vue") }],
   },
