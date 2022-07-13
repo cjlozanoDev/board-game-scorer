@@ -1,8 +1,10 @@
 <template>
+  <LoadingComponent />
   <router-view />
 </template>
 
 <script>
+import LoadingComponent from "./components/LoadingComponent.vue";
 import { getUser } from "src/api/index.js";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./api/firebase";
@@ -29,5 +31,8 @@ onAuthStateChanged(auth, (user) => {
 
 export default {
   name: "App",
+  components: {
+    LoadingComponent,
+  },
 };
 </script>

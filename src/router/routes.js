@@ -24,6 +24,15 @@ const routes = [
     component: () => import("layouts/InternalLayout.vue"),
     children: [{ path: "", component: () => import("pages/HomePage.vue") }],
   },
+  {
+    path: "/games",
+    name: "Games",
+    meta: {
+      Auth: true,
+    },
+    component: () => import("layouts/InternalLayout.vue"),
+    children: [{ path: "", component: () => import("pages/GamesPage.vue") }],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

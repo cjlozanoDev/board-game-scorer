@@ -100,6 +100,7 @@ import {
 } from "src/api/auth";
 import { useRouter } from "vue-router";
 import { validateEmailRegex } from "../utils/validations-regex";
+import { useBgsStore } from "../stores/bgs";
 
 export default {
   name: "LoginPage",
@@ -108,11 +109,16 @@ export default {
   },
   setup() {
     onMounted(() => {
-      getRedirectResultApi().then((result) => {
-        if (result) {
-          addUserInCollection(result.user);
-        }
-      });
+      getRedirectResultApi()
+        .then((result) => {
+          if (result) {
+            bgsStore.setLoading(true);
+            addUserInCollection(result.user);
+          }
+        })
+        .catch((error) => {
+          bgsStore.setLoading(false);
+        });
     });
     const router = useRouter();
     const textInfo = ref(
@@ -123,18 +129,22 @@ export default {
     const isPwd = ref(true);
     const showErrorBanner = ref(false);
 
+    const bgsStore = useBgsStore();
+
     const messageMailForm = ref(
       "El email es necesario para entrar en la aplicación"
     );
     const messageErrorBanner = ref("");
 
     const accessWithGoogle = () => {
+      bgsStore.setLoading(true);
       accessWithGoogleApi()
         .then((result) => {
           addUserInCollection(result.user);
         })
         .catch((error) => {
           console.log("error es:", error);
+          bgsStore.setLoading(false);
         });
     };
 
@@ -142,9 +152,13 @@ export default {
       addUserInCollectionApi(user.displayName, user.email, user.uid)
         .then(() => {
           goToHome();
+          bgsStore.setLoading(false);
         })
         .catch((error) => {
           console.log("error al guardar", error);
+        })
+        .finally(() => {
+          bgsStore.setLoading(false);
         });
     };
     const validateText = (text) => {
