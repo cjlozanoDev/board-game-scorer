@@ -1,19 +1,22 @@
 import { defineStore } from "pinia";
 
 export const useBgsStore = defineStore("bgs", {
-  state: () => ({
-    counter: 3,
-  }),
+  state: () => {
+    return {
+      user: {},
+    };
+  },
 
   getters: {
-    doubleCount(state) {
-      return state.counter * 2;
+    userData(state) {
+      return state.user;
     },
   },
 
   actions: {
-    increment() {
-      this.counter++;
+    setUser(userData) {
+      this.user = userData;
     },
   },
+  persist: true,
 });
