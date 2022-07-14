@@ -25,12 +25,15 @@ export default {
     };
   },
   watch: {
-    isLoading(newValue, oldValue) {
-      if (newValue) {
-        this.quasar.loading.show("El mensaje que tu quieres");
-      } else {
-        this.quasar.loading.hide();
-      }
+    isLoading: {
+      handler(newValue, oldValue) {
+        if (newValue.isLoading) {
+          this.quasar.loading.show({ message: newValue.message });
+        } else {
+          this.quasar.loading.hide();
+        }
+      },
+      deep: true,
     },
   },
 };

@@ -100,7 +100,7 @@ import {
 } from "src/api/auth";
 import { useRouter } from "vue-router";
 import { validateEmailRegex } from "../utils/validations-regex";
-import { useBgsStore } from "../stores/bgs";
+import { showLoading } from "../utils/loading";
 
 export default {
   name: "LoginPage",
@@ -108,22 +108,6 @@ export default {
     ButtonBsg,
   },
   setup() {
-    onMounted(() => {
-      if (window.sessionStorage.getItem("pending")) {
-        window.sessionStorage.removeItem("pending");
-        bgsStore.setLoading(true);
-      }
-      getRedirectResultApi()
-        .then((result) => {
-          if (result) {
-            bgsStore.setLoading(true);
-            addUserInCollection(result.user);
-          }
-        })
-        .catch((error) => {
-          bgsStore.setLoading(false);
-        });
-    });
     const router = useRouter();
     const textInfo = ref(
       "Tu app para llevar las puntuaciones de tus partidas de juegos mesa, estadísticas y mucho más"
@@ -133,37 +117,56 @@ export default {
     const isPwd = ref(true);
     const showErrorBanner = ref(false);
 
-    const bgsStore = useBgsStore();
-
     const messageMailForm = ref(
       "El email es necesario para entrar en la aplicación"
     );
     const messageErrorBanner = ref("");
 
-    const accessWithGoogle = () => {
-      bgsStore.setLoading(true);
-      accessWithGoogleApi()
+    onMounted(() => {
+      if (window.sessionStorage.getItem("pending")) {
+        window.sessionStorage.removeItem("pending");
+        showLoading(true);
+      }
+      getRedirectResultApi()
         .then((result) => {
-          addUserInCollection(result.user);
+          if (result) {
+            const user = result.user;
+            return addUserInCollectionApi(
+              user.displayName,
+              user.email,
+              user.uid
+            );
+          }
         })
-        .catch((error) => {
-          console.log("error es:", error);
-          bgsStore.setLoading(false);
-        });
-    };
-
-    const addUserInCollection = (user) => {
-      addUserInCollectionApi(user.displayName, user.email, user.uid)
         .then(() => {
           goToHome();
         })
         .catch((error) => {
-          console.log("error al guardar", error);
+          console.log("el error es", error);
         })
         .finally(() => {
-          bgsStore.setLoading(false);
+          showLoading(false);
+        });
+    });
+
+    const accessWithGoogle = () => {
+      showLoading(true);
+      accessWithGoogleApi()
+        .then((result) => {
+          const user = result.user;
+          return addUserInCollectionApi(user.displayName, user.email, user.uid);
+        })
+        .then(() => {
+          goToHome();
+        })
+        .catch((error) => {
+          console.log("error es:", error);
+        })
+        .finally(() => {
+          showLoading(false);
         });
     };
+
     const validateText = (text) => {
       return text.trim() && text.length > 0;
     };
@@ -184,7 +187,7 @@ export default {
     };
 
     const signInWithEmailAndPassword = () => {
-      bgsStore.setLoading(true);
+      showLoading(true);
       signInWithEmailAndPasswordApi(email.value, password.value)
         .then(() => {
           showErrorBanner.value = false;
@@ -195,7 +198,7 @@ export default {
           showErrorBanner.value = true;
         })
         .finally(() => {
-          bgsStore.setLoading(false);
+          showLoading(false);
         });
     };
 

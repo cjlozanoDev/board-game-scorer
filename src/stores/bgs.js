@@ -4,7 +4,10 @@ export const useBgsStore = defineStore("bgs", {
   state: () => {
     return {
       user: {},
-      loading: false,
+      loading: {
+        isLoading: false,
+        message: "",
+      },
     };
   },
 
@@ -21,8 +24,9 @@ export const useBgsStore = defineStore("bgs", {
     setUser(userData) {
       this.user = userData;
     },
-    setLoading(isLoading) {
-      this.loading = isLoading;
+    setLoading(isLoading, message) {
+      this.loading.isLoading = isLoading;
+      this.loading.message = message;
     },
   },
   persist: {
