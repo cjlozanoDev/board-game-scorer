@@ -109,6 +109,10 @@ export default {
   },
   setup() {
     onMounted(() => {
+      if (window.sessionStorage.getItem("pending")) {
+        window.sessionStorage.removeItem("pending");
+        bgsStore.setLoading(true);
+      }
       getRedirectResultApi()
         .then((result) => {
           if (result) {
@@ -152,7 +156,6 @@ export default {
       addUserInCollectionApi(user.displayName, user.email, user.uid)
         .then(() => {
           goToHome();
-          bgsStore.setLoading(false);
         })
         .catch((error) => {
           console.log("error al guardar", error);
@@ -181,6 +184,7 @@ export default {
     };
 
     const signInWithEmailAndPassword = () => {
+      bgsStore.setLoading(true);
       signInWithEmailAndPasswordApi(email.value, password.value)
         .then(() => {
           showErrorBanner.value = false;
@@ -189,6 +193,9 @@ export default {
         .catch((error) => {
           messageErrorBanner.value = errors[error.code];
           showErrorBanner.value = true;
+        })
+        .finally(() => {
+          bgsStore.setLoading(false);
         });
     };
 

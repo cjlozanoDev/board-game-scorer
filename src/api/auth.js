@@ -16,6 +16,10 @@ import { auth, db } from "../api/firebase";
 const accessWithGoogleApi = () => {
   const provider = new GoogleAuthProvider();
 
+  if (Platform.is.mobile) {
+    window.sessionStorage.setItem("pending", 1);
+  }
+
   return Platform.is.mobile
     ? signInWithRedirect(auth, provider)
     : signInWithPopup(auth, provider);
