@@ -1,4 +1,5 @@
-import { Platform } from "quasar";
+import { DateTime } from "luxon";
+import { date, Platform } from "quasar";
 import {
   signInWithPopup,
   signInWithRedirect,
@@ -42,6 +43,7 @@ const addUserInCollectionApi = (name, email, userUid) => {
     name,
     email,
     uid: userUid,
+    created_at: DateTime.now().toLocaleString(),
   });
 };
 const signOutApi = () => {

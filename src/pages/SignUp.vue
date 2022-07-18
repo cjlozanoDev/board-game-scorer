@@ -107,6 +107,7 @@ import {
 } from "src/api/auth";
 import { useRouter } from "vue-router";
 import { validateEmailRegex } from "../utils/validations-regex";
+import { showLoading } from "../utils/loading";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
 
 export default {
@@ -133,6 +134,7 @@ export default {
 
     const createUser = () => {
       if (isValidateForm()) {
+        showLoading(true);
         createUserWithEmailAndPasswordApi(email.value, password.value)
           .then((result) => {
             const user = result.user;
@@ -148,6 +150,9 @@ export default {
           .catch((error) => {
             messageErrorBanner.value = errors[error.code];
             showErrorBanner.value = true;
+          })
+          .finally(() => {
+            showLoading(false);
           });
       }
     };

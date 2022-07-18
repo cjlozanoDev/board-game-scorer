@@ -101,6 +101,7 @@ import {
 import { useRouter } from "vue-router";
 import { validateEmailRegex } from "../utils/validations-regex";
 import { showLoading } from "../utils/loading";
+import { getAdditionalUserInfo } from "firebase/auth";
 
 export default {
   name: "LoginPage",
@@ -154,7 +155,14 @@ export default {
       accessWithGoogleApi()
         .then((result) => {
           const user = result.user;
-          return addUserInCollectionApi(user.displayName, user.email, user.uid);
+          const { isNewUser } = getAdditionalUserInfo(result);
+
+          if (isNewUser)
+            return addUserInCollectionApi(
+              user.displayName,
+              user.email,
+              user.uid
+            );
         })
         .then(() => {
           goToHome();
