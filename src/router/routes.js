@@ -25,13 +25,15 @@ const routes = [
     children: [{ path: "", component: () => import("pages/HomePage.vue") }],
   },
   {
-    path: "/games",
+    path: "/boardgames",
     name: "Games",
     meta: {
       Auth: true,
     },
     component: () => import("layouts/InternalLayout.vue"),
-    children: [{ path: "", component: () => import("pages/GamesPage.vue") }],
+    children: [
+      { path: "", component: () => import("pages/BoardGamesPage.vue") },
+    ],
   },
 
   // Always leave this as last one,

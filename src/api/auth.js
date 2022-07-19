@@ -43,7 +43,7 @@ const addUserInCollectionApi = (name, email, userUid) => {
     name,
     email,
     uid: userUid,
-    created_at: DateTime.now().toLocaleString(),
+    created_at: DateTime.now().toLocaleString(DateTime.DATETIME_FULL),
   });
 };
 const signOutApi = () => {

@@ -14,6 +14,13 @@
           {{ tab }}
         </q-toolbar-title>
       </q-toolbar>
+
+      <q-tabs v-model="tab" class="internat-layout__tabs-header shadow-2">
+        <q-tab name="Inicio" icon="ti-home" label="Inicio" />
+        <q-tab name="Partidas" icon="ti-game" label="partidas" />
+        <q-tab name="Juegos" icon="ti-layout-grid4-alt" label="juegos" />
+        <q-tab name="Buscar" icon="ti-search" label="buscar" />
+      </q-tabs>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" :width="200" :breakpoint="400">
@@ -40,7 +47,7 @@
           </q-item>
 
           <q-item
-            to="/games"
+            to="/boardgames"
             clickable
             v-ripple
             active-class="interna-layout__drawer__link-active"
@@ -90,7 +97,10 @@
     </q-page-container>
 
     <q-footer elevated class="bg-grey-8 text-white">
-      <q-tabs v-model="tab" class="shadow-2 full-width">
+      <q-tabs
+        v-model="tab"
+        class="internat-layout__tabs-footer shadow-2 full-width"
+      >
         <q-tab name="Inicio" icon="ti-home" label="Inicio" />
         <q-tab name="Partidas" icon="ti-game" label="partidas" />
         <q-tab name="Juegos" icon="ti-layout-grid4-alt" label="juegos" />
@@ -148,11 +158,27 @@ export default {
 <style scoped>
 div ::v-deep(.q-tabs__content--align-center) {
   justify-content: space-around;
+  width: 100%;
 }
 .internal-layout__avatar {
   background-color: #fff;
 }
 .interna-layout__drawer__link-active {
   color: var(--color-primary);
+}
+.internat-layout__tabs-header {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .div ::v-deep(.q-tabs__content--align-center) {
+    justify-content: initial;
+  }
+  .internat-layout__tabs-footer {
+    display: none;
+  }
+  .internat-layout__tabs-header {
+    display: block;
+  }
 }
 </style>
