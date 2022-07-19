@@ -15,12 +15,7 @@
         </q-toolbar-title>
       </q-toolbar>
 
-      <q-tabs v-model="tab" class="internat-layout__tabs-header shadow-2">
-        <q-tab name="Inicio" icon="ti-home" label="Inicio" />
-        <q-tab name="Partidas" icon="ti-game" label="partidas" />
-        <q-tab name="Juegos" icon="ti-layout-grid4-alt" label="juegos" />
-        <q-tab name="Buscar" icon="ti-search" label="buscar" />
-      </q-tabs>
+      <TabsLayoutInternal v-model="tab" class="internat-layout__tabs-header" />
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" :width="200" :breakpoint="400">
@@ -97,15 +92,7 @@
     </q-page-container>
 
     <q-footer elevated class="bg-grey-8 text-white">
-      <q-tabs
-        v-model="tab"
-        class="internat-layout__tabs-footer shadow-2 full-width"
-      >
-        <q-tab name="Inicio" icon="ti-home" label="Inicio" />
-        <q-tab name="Partidas" icon="ti-game" label="partidas" />
-        <q-tab name="Juegos" icon="ti-layout-grid4-alt" label="juegos" />
-        <q-tab name="Buscar" icon="ti-search" label="buscar" />
-      </q-tabs>
+      <TabsLayoutInternal v-model="tab" class="internat-layout__tabs-footer" />
     </q-footer>
   </q-layout>
 </template>
@@ -115,12 +102,14 @@ import { ref } from "vue";
 import { signOutApi } from "../api/auth";
 import { useRouter } from "vue-router";
 import { useBgsStore } from "../stores/bgs";
+import TabsLayoutInternal from "../components/TabsLayoutInternal.vue";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
 
 export default {
   name: "InternalLayout",
   components: {
     ButtonBsg,
+    TabsLayoutInternal,
   },
   setup() {
     const leftDrawerOpen = ref(false);
