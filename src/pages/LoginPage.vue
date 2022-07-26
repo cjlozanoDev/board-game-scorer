@@ -132,11 +132,14 @@ export default {
         .then((result) => {
           if (result) {
             const user = result.user;
-            return addUserInCollectionApi(
-              user.displayName,
-              user.email,
-              user.uid
-            );
+            const { isNewUser } = getAdditionalUserInfo(result);
+
+            if (isNewUser)
+              return addUserInCollectionApi(
+                user.displayName,
+                user.email,
+                user.uid
+              );
           }
         })
         .then(() => {
