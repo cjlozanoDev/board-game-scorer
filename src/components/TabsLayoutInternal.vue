@@ -2,7 +2,7 @@
   <q-tabs
     :value="modelValue"
     @update:model-value="updateTab"
-    class="full-width"
+    class="full-width bg-accent"
   >
     <q-tab name="Inicio" icon="ti-home" label="Inicio" />
     <q-tab name="Partidas" icon="ti-game" label="partidas" />

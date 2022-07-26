@@ -1,7 +1,10 @@
 :root {
   /* colors */
-  --color-primary: #008f95;
-  --color-secondary: #e24e42;
-  --color-mustard-app: #e9b000;
-  --color-blush-app: #eb6e80;
+  --color-primary: #62152d;
+  --color-secondary: #952f57;
+  --color-tertiary: #ca668b;
+  --color-accent: #70585d;
+  --color-tertiary-opacity: rgba(203, 103, 140, 0.2);
+  --color-mustard-soft-app: #efb810;
+  --color-blush-app: #f9db5c;
 }
