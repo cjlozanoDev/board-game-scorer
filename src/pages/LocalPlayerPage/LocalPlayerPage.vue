@@ -6,18 +6,33 @@
   >
     <q-page padding>
       <p class="p-title">Crear jugador</p>
-      <FormLocalPlayer />
+      <FormLocalPlayer @create-local-player="createLocalPlayer" />
     </q-page>
   </transition>
 </template>
 
 <script>
 import FormLocalPlayer from "./components/FormLocalPlayer.vue";
+import { addLocalUserApi, addLocalUserInsideUserApi } from "../../api/index";
 
 export default {
   components: {
     FormLocalPlayer,
   },
-  setup() {},
+  setup() {
+    const createLocalPlayer = (user) => {
+      addLocalUserApi(user)
+        .then((localUser) => {
+          return addLocalUserInsideUserApi(user, localUser.id);
+        })
+        .then(() => {
+          console.log("Ahora sí, usuario creado");
+        });
+    };
+
+    return {
+      createLocalPlayer,
+    };
+  },
 };
 </script>

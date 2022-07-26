@@ -27,10 +27,15 @@ export default {
   components: {
     ButtonBsg,
   },
-  setup() {
+  setup(props, context) {
     const name = ref("");
     const nickName = ref("");
-    const createLocalPlayer = () => {};
+    const createLocalPlayer = () => {
+      context.emit("create-local-player", {
+        name: name.value,
+        nickName: nickName.value,
+      });
+    };
 
     return {
       createLocalPlayer,
