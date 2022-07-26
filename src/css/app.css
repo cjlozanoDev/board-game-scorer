@@ -8,6 +8,12 @@ body {
   margin: 0;
   background: var(--color-tertiary-opacity);
 }
+.p-title {
+  font-size: 2em;
+}
+.p-subtitle {
+  font-size: 1.2em;
+}
 .login-page,
 .sign-up {
   position: relative;

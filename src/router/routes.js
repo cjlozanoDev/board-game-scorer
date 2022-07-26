@@ -49,7 +49,8 @@ const routes = [
       },
       {
         path: "localplayer",
-        component: () => import("pages/LocalPlayerPage.vue"),
+        component: () =>
+          import("src/pages/LocalPlayerPage/LocalPlayerPage.vue"),
       },
     ],
   },

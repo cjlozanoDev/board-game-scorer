@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
-    <p class="local-players__header">Jugadores que has creado</p>
-    <p v-if="!user.localPlayers">
+    <p class="p-title">Jugadores que has creado</p>
+    <p class="p-subtitle" v-if="!user.localPlayers">
       No tienes jugadores creados, puedes añadir o crear tu primer jugador
       haciendo click en el botón de abajo
     </p>

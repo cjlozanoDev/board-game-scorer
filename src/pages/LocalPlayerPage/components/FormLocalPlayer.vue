@@ -1,0 +1,51 @@
+<template>
+  <q-form @submit.prevent="createLocalPlayer()">
+    <q-input v-model="name" label="Nombre *">
+      <template v-slot:prepend>
+        <q-icon name="person" />
+      </template>
+    </q-input>
+
+    <q-input v-model="nickName" label="Apodo">
+      <template v-slot:prepend>
+        <q-icon name="accessibility" />
+      </template>
+    </q-input>
+
+    <div class="form-local-player__actions">
+      <ButtonBsg size="md" type="submit" label="Guardar jugador" />
+    </div>
+  </q-form>
+</template>
+
+<script>
+import { ref } from "vue";
+import ButtonBsg from "src/components/elements/ButtonBgs.vue";
+
+export default {
+  name: "FormLocalPlayer",
+  components: {
+    ButtonBsg,
+  },
+  setup() {
+    const name = ref("");
+    const nickName = ref("");
+    const createLocalPlayer = () => {};
+
+    return {
+      createLocalPlayer,
+      name,
+      nickName,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.q-input {
+  margin-bottom: 10px;
+}
+.form-local-player__actions {
+  margin-top: 40px;
+}
+</style>
