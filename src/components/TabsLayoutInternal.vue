@@ -7,7 +7,7 @@
     <q-tab name="Inicio" icon="ti-home" label="Inicio" />
     <q-tab name="Partidas" icon="ti-game" label="partidas" />
     <q-tab name="Juegos" icon="ti-layout-grid4-alt" label="juegos" />
-    <q-tab name="Buscar" icon="ti-search" label="buscar" />
+    <q-tab name="Jugadores" icon="groups" label="Jugadores" />
   </q-tabs>
 </template>
 

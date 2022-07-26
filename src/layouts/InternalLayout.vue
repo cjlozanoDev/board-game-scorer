@@ -32,6 +32,7 @@
             clickable
             v-ripple
             active-class="interna-layout__drawer__link-active"
+            @click="resetTabActive"
             exact
           >
             <q-item-section avatar>
@@ -46,6 +47,7 @@
             clickable
             v-ripple
             active-class="interna-layout__drawer__link-active"
+            @click="resetTabActive"
           >
             <q-item-section avatar>
               <q-icon name="star" />
@@ -54,7 +56,7 @@
             <q-item-section> Juegos </q-item-section>
           </q-item>
 
-          <q-item clickable v-ripple>
+          <q-item clickable v-ripple @click="resetTabActive">
             <q-item-section avatar>
               <q-icon name="send" />
             </q-item-section>
@@ -98,7 +100,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { signOutApi } from "../api/auth";
 import { useRouter } from "vue-router";
 import { useBgsStore } from "../stores/bgs";
@@ -118,6 +120,16 @@ export default {
     const bgsStore = useBgsStore();
     const user = bgsStore.getUserData;
 
+    watch(tab, (newValue, oldValue) => {
+      switch (newValue) {
+        case "Jugadores":
+          router.push({ path: "/localplayers" });
+          break;
+        default:
+          console.log(newValue);
+      }
+    });
+
     const signOut = () => {
       signOutApi()
         .then(() => {
@@ -133,11 +145,16 @@ export default {
       leftDrawerOpen.value = !leftDrawerOpen.value;
     };
 
+    const resetTabActive = () => {
+      tab.value = "";
+    };
+
     return {
       tab,
       toggleLeftDrawer,
       leftDrawerOpen,
       signOut,
+      resetTabActive,
       user,
     };
   },
@@ -160,8 +177,8 @@ div ::v-deep(.q-tabs__content--align-center) {
 }
 
 @media (min-width: 1024px) {
-  .div ::v-deep(.q-tabs__content--align-center) {
-    justify-content: initial;
+  div ::v-deep(.q-tabs__content--align-center) {
+    justify-content: center;
   }
   .internat-layout__tabs-footer {
     display: none;

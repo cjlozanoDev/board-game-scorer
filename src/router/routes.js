@@ -26,13 +26,31 @@ const routes = [
   },
   {
     path: "/boardgames",
-    name: "Games",
+    name: "BoardGames",
     meta: {
       Auth: true,
     },
     component: () => import("layouts/InternalLayout.vue"),
     children: [
       { path: "", component: () => import("pages/BoardGamesPage.vue") },
+    ],
+  },
+  {
+    path: "/localplayers",
+    name: "Games",
+    meta: {
+      Auth: true,
+    },
+    component: () => import("layouts/InternalLayout.vue"),
+    children: [
+      {
+        path: "",
+        component: () => import("pages/LocalPlayers.vue"),
+      },
+      {
+        path: "localplayer",
+        component: () => import("pages/LocalPlayerPage.vue"),
+      },
     ],
   },
 

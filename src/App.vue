@@ -1,6 +1,15 @@
 <template>
   <LoadingComponent />
   <router-view />
+  <!-- router-view v-slot="{ Component }">
+    <transition
+      appear
+      enter-active-class="animated slideInRight"
+      leave-active-class="animated slideInLeft"
+    >
+      <component :is="Component" />
+    </transition>
+  </router-view> -->
 </template>
 
 <script>
