@@ -1,6 +1,11 @@
 <template>
   <q-form @submit.prevent="createLocalPlayer()">
-    <q-input v-model="name" label="Nombre *">
+    <q-input
+      v-model="name"
+      label="Nombre *"
+      lazy-rules
+      :rules="[(val) => (val && val.length > 0) || 'El nombre es obligario']"
+    >
       <template v-slot:prepend>
         <q-icon name="person" />
       </template>

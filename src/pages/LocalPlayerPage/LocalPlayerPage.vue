@@ -17,19 +17,32 @@
 <script>
 import FormLocalPlayer from "./components/FormLocalPlayer.vue";
 import { addLocalUserApi, addLocalUserInsideUserApi } from "../../api/index";
+import { showLoading } from "../../utils/loading";
+import { useBgsStore } from "../../stores/bgs";
+import { useRouter } from "vue-router";
 
 export default {
   components: {
     FormLocalPlayer,
   },
   setup() {
+    const bgsStore = useBgsStore();
+    const router = useRouter();
+
     const createLocalPlayer = (user) => {
+      showLoading(true);
       addLocalUserApi(user)
         .then((localUser) => {
+          bgsStore.setLocalUser({ ...user, uid: localUser.id });
           return addLocalUserInsideUserApi(user, localUser.id);
         })
         .then(() => {
-          console.log("Ahora sí, usuario creado");
+          router.push({
+            path: "/localplayers",
+          });
+        })
+        .finally(() => {
+          showLoading(false);
         });
     };
 
