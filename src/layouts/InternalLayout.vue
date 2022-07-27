@@ -3,6 +3,7 @@
     <q-header elevated class="bg-secondary text-white" height-hint="98">
       <q-toolbar>
         <ButtonBsg
+          v-if="!routerMeta.backButton"
           dense
           flat
           round
@@ -10,15 +11,33 @@
           class="text-white"
           @click="toggleLeftDrawer"
         />
+        <ButtonBsg
+          v-else
+          dense
+          flat
+          round
+          icon="arrow_back"
+          class="text-white"
+          @click="goToBackRouter"
+        />
         <q-toolbar-title>
-          {{ tab }}
+          {{ routerMeta.nameHeader }}
         </q-toolbar-title>
       </q-toolbar>
 
-      <TabsLayoutInternal v-model="tab" class="internat-layout__tabs-header" />
+      <TabsLayoutInternal
+        v-model="tab"
+        class="internat-layout__tabs-header"
+        @click-tab-internal="clickTabInternal"
+      />
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" :width="200" :breakpoint="400">
+    <q-drawer
+      v-if="!routerMeta.backButton"
+      v-model="leftDrawerOpen"
+      :width="200"
+      :breakpoint="400"
+    >
       <q-scroll-area
         style="
           height: calc(100% - 150px);
@@ -94,7 +113,11 @@
     </q-page-container>
 
     <q-footer elevated class="bg-grey-8 text-white">
-      <TabsLayoutInternal v-model="tab" class="internat-layout__tabs-footer" />
+      <TabsLayoutInternal
+        v-model="tab"
+        class="internat-layout__tabs-footer"
+        @click-tab-internal="clickTabInternal"
+      />
     </q-footer>
   </q-layout>
 </template>
@@ -118,19 +141,12 @@ export default {
     const tab = ref("Inicio");
     const router = useRouter();
     const bgsStore = useBgsStore();
+
     const user = computed(() => {
       return bgsStore.getUserData;
     });
 
-    watch(tab, (newValue, oldValue) => {
-      switch (newValue) {
-        case "Jugadores":
-          router.push({ path: "/localplayers" });
-          break;
-        default:
-          console.log(newValue);
-      }
-    });
+    const routerMeta = computed(() => router.currentRoute.value.meta);
 
     const signOut = () => {
       signOutApi()
@@ -147,8 +163,16 @@ export default {
       leftDrawerOpen.value = !leftDrawerOpen.value;
     };
 
+    const clickTabInternal = (pathTab) => {
+      router.push({ path: pathTab });
+    };
+
     const resetTabActive = () => {
       tab.value = "";
+    };
+
+    const goToBackRouter = () => {
+      router.push({ path: routerMeta.value.backPagePath });
     };
 
     return {
@@ -158,6 +182,9 @@ export default {
       signOut,
       resetTabActive,
       user,
+      routerMeta,
+      goToBackRouter,
+      clickTabInternal,
     };
   },
 };

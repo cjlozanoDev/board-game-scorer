@@ -22,7 +22,17 @@ const routes = [
       Auth: true,
     },
     component: () => import("layouts/InternalLayout.vue"),
-    children: [{ path: "", component: () => import("pages/HomePage.vue") }],
+    children: [
+      {
+        path: "",
+        meta: {
+          nameHeader: "Inicio",
+          backButton: false,
+          backPagePath: null,
+        },
+        component: () => import("pages/HomePage.vue"),
+      },
+    ],
   },
   {
     path: "/boardgames",
@@ -32,12 +42,20 @@ const routes = [
     },
     component: () => import("layouts/InternalLayout.vue"),
     children: [
-      { path: "", component: () => import("pages/BoardGamesPage.vue") },
+      {
+        path: "",
+        meta: {
+          nameHeader: "Juegos",
+          backButton: false,
+          backPagePath: null,
+        },
+        component: () => import("pages/BoardGamesPage.vue"),
+      },
     ],
   },
   {
     path: "/localplayers",
-    name: "Games",
+    name: "Players",
     meta: {
       Auth: true,
     },
@@ -45,10 +63,20 @@ const routes = [
     children: [
       {
         path: "",
+        meta: {
+          nameHeader: "Jugadores",
+          backButton: false,
+          backPagePath: null,
+        },
         component: () => import("pages/LocalPlayers.vue"),
       },
       {
         path: "localplayer",
+        meta: {
+          nameHeader: "Crear Jugador",
+          backButton: true,
+          backPagePath: "/localplayers",
+        },
         component: () =>
           import("src/pages/LocalPlayerPage/LocalPlayerPage.vue"),
       },

@@ -4,10 +4,30 @@
     @update:model-value="updateTab"
     class="full-width bg-accent"
   >
-    <q-tab name="Inicio" icon="ti-home" label="Inicio" />
-    <q-tab name="Partidas" icon="ti-game" label="partidas" />
-    <q-tab name="Juegos" icon="ti-layout-grid4-alt" label="juegos" />
-    <q-tab name="Jugadores" icon="groups" label="Jugadores" />
+    <q-tab
+      @click="clickTabInternal('/')"
+      name="Inicio"
+      icon="ti-home"
+      label="Inicio"
+    />
+    <q-tab
+      @click="clickTabInternal('/')"
+      name="Partidas"
+      icon="ti-game"
+      label="partidas"
+    />
+    <q-tab
+      @click="clickTabInternal('/boardgames')"
+      name="Juegos"
+      icon="ti-layout-grid4-alt"
+      label="juegos"
+    />
+    <q-tab
+      @click="clickTabInternal('/localplayers')"
+      name="Jugadores"
+      icon="groups"
+      label="Jugadores"
+    />
   </q-tabs>
 </template>
 
@@ -25,8 +45,13 @@ export default {
       context.emit("update:modelValue", e);
     };
 
+    const clickTabInternal = (pathTab) => {
+      context.emit("click-tab-internal", pathTab);
+    };
+
     return {
       updateTab,
+      clickTabInternal,
     };
   },
 };
