@@ -35,6 +35,7 @@ export default {
   setup(props, context) {
     const name = ref("");
     const nickName = ref("");
+
     const createLocalPlayer = () => {
       context.emit("create-local-player", {
         name: name.value,

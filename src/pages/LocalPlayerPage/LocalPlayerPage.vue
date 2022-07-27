@@ -20,6 +20,7 @@ import { addLocalUserApi, addLocalUserInsideUserApi } from "../../api/index";
 import { showLoading } from "../../utils/loading";
 import { useBgsStore } from "../../stores/bgs";
 import { useRouter } from "vue-router";
+import { showNotify } from "src/utils/notify";
 
 export default {
   components: {
@@ -37,13 +38,31 @@ export default {
           return addLocalUserInsideUserApi(user, localUser.id);
         })
         .then(() => {
+          showNotification({
+            message: "El jugador ha sido añadido correctamente",
+            color: "secondary",
+          });
           router.push({
             path: "/localplayers",
+          });
+        })
+        .catch((error) => {
+          showNotification({
+            message:
+              "Ha habido un problema al añadir al jugador, por favor, inténtalo de nuevo",
+            type: "negative",
           });
         })
         .finally(() => {
           showLoading(false);
         });
+    };
+
+    const showNotification = ({ message, color }) => {
+      showNotify({
+        message,
+        color,
+      });
     };
 
     return {
