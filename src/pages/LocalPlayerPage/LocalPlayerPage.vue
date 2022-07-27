@@ -4,9 +4,12 @@
     enter-active-class="animated slideInRight"
     leave-active-class="animated slideInLeft"
   >
-    <q-page padding>
-      <p class="p-title">Crear jugador</p>
-      <FormLocalPlayer @create-local-player="createLocalPlayer" />
+    <q-page class="local-player-page page-center-flex">
+      <div class="text-center">
+        <p class="p-title">Crear jugador</p>
+        <q-icon name="face" size="10em" />
+        <FormLocalPlayer @create-local-player="createLocalPlayer" />
+      </div>
     </q-page>
   </transition>
 </template>

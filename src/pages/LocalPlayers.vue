@@ -4,7 +4,6 @@
       'page-center-flex',
       { 'local-players--not-players': !localPlayers },
     ]"
-    padding
   >
     <div class="text-center" v-if="!localPlayers">
       <q-icon name="supervised_user_circle" size="10em" />
