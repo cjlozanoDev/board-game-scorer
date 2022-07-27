@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import { signOutApi } from "../api/auth";
 import { useRouter } from "vue-router";
 import { useBgsStore } from "../stores/bgs";
@@ -118,7 +118,9 @@ export default {
     const tab = ref("Inicio");
     const router = useRouter();
     const bgsStore = useBgsStore();
-    const user = bgsStore.getUserData;
+    const user = computed(() => {
+      return bgsStore.getUserData;
+    });
 
     watch(tab, (newValue, oldValue) => {
       switch (newValue) {
