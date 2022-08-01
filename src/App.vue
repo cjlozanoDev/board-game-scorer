@@ -20,7 +20,7 @@ import { auth } from "./api/firebase";
 import { useBgsStore } from "./stores/bgs";
 
 onAuthStateChanged(auth, (user) => {
-  if (user && !localStorage.getItem("signedin")) {
+  if (user) {
     localStorage.setItem("signedin", "true");
     getUser()
       .then((user) => {

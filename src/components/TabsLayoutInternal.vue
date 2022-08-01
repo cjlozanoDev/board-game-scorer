@@ -7,19 +7,19 @@
     <q-tab
       @click="clickTabInternal('/')"
       name="Inicio"
-      icon="ti-home"
+      icon="home"
       label="Inicio"
     />
     <q-tab
       @click="clickTabInternal('/')"
       name="Partidas"
-      icon="ti-game"
+      icon="casino"
       label="partidas"
     />
     <q-tab
       @click="clickTabInternal('/boardgames')"
       name="Juegos"
-      icon="ti-layout-grid4-alt"
+      icon="inventory_2"
       label="juegos"
     />
     <q-tab

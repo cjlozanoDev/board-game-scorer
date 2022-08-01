@@ -46,6 +46,7 @@
             v-for="localPlayer in localPlayers"
             :key="localPlayer.uid"
             clickable
+            @click="goToEditPlayer(localPlayer)"
             v-ripple
           >
             <q-item-section>
@@ -53,6 +54,9 @@
               <q-item-label caption
                 >apodo: {{ localPlayer.nickName }}</q-item-label
               >
+            </q-item-section>
+            <q-item-section avatar>
+              <q-icon name="arrow_right" />
             </q-item-section>
           </q-item>
         </q-list>
@@ -86,7 +90,16 @@ export default {
       });
     };
 
-    return { localPlayers, createNewPlayer };
+    const goToEditPlayer = (localPlayer) => {
+      router.push({
+        name: "editPlayer",
+        params: {
+          localPlayer: JSON.stringify(localPlayer),
+        },
+      });
+    };
+
+    return { localPlayers, createNewPlayer, goToEditPlayer };
   },
 };
 </script>

@@ -80,6 +80,17 @@ const routes = [
         component: () =>
           import("src/pages/LocalPlayerPage/LocalPlayerPage.vue"),
       },
+      {
+        path: "editlocalplayer/",
+        name: "editPlayer",
+        meta: {
+          nameHeader: "Editar Jugador",
+          backButton: true,
+          backPagePath: "/localplayers",
+        },
+        component: () => import("src/pages/EditLocalPlayer.vue"),
+        props: true,
+      },
     ],
   },
 
