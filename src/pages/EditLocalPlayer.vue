@@ -1,34 +1,46 @@
 <template>
-  <q-page class="edit-local-player page-center-flex">
-    <p class="p-title">Editar jugador</p>
-    <div class="text-center">
-      <q-icon name="assignment_ind" size="10em" />
-      <q-form @submit.prevent="createLocalPlayer()">
-        <q-input
-          v-model="name"
-          label="Nombre *"
-          lazy-rules
-          :rules="[
-            (val) => (val && val.length > 0) || 'El nombre es obligario',
-          ]"
-        >
-          <template v-slot:prepend>
-            <q-icon name="person" />
-          </template>
-        </q-input>
+  <transition
+    appear
+    enter-active-class="animated slideInRight"
+    leave-active-class="animated slideInLeft"
+  >
+    <q-page class="edit-local-player page-center-flex">
+      <p class="p-title">Editar jugador</p>
+      <div class="text-center">
+        <q-icon name="assignment_ind" size="10em" />
+        <q-form @submit.prevent="createLocalPlayer()">
+          <q-input
+            v-model="name"
+            label="Nombre *"
+            lazy-rules
+            :rules="[
+              (val) => (val && val.length > 0) || 'El nombre es obligario',
+            ]"
+          >
+            <template v-slot:prepend>
+              <q-icon name="person" />
+            </template>
+          </q-input>
 
-        <q-input v-model="nickName" label="Apodo">
-          <template v-slot:prepend>
-            <q-icon name="accessibility" />
-          </template>
-        </q-input>
+          <q-input v-model="nickName" label="Apodo">
+            <template v-slot:prepend>
+              <q-icon name="accessibility" />
+            </template>
+          </q-input>
 
-        <div class="edit-local-player__actions">
-          <ButtonBsg size="md" type="submit" label="Guardar jugador" />
-        </div>
-      </q-form>
-    </div>
-  </q-page>
+          <div class="edit-local-player__actions">
+            <ButtonBsg size="md" type="submit" label="Guardar cambios" />
+            <ButtonBsg
+              size="md"
+              label="Eliminar"
+              icon-right="delete"
+              color="negative"
+            />
+          </div>
+        </q-form>
+      </div>
+    </q-page>
+  </transition>
 </template>
 
 <script>
@@ -61,6 +73,8 @@ export default {
 
 <style scoped>
 .edit-local-player__actions {
+  display: flex;
+  gap: 10px;
   margin-top: 40px;
 }
 .q-input {
