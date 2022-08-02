@@ -32,4 +32,25 @@ const addLocalUserInsideUserApi = (localUser, localUserId) => {
   });
 };
 
-export { getUser, addLocalUserApi, addLocalUserInsideUserApi };
+const updateLocalUsersInsideUserApi = (localUsers) => {
+  const docRef = doc(db, "users", auth.currentUser.uid);
+  return updateDoc(docRef, {
+    localUsers,
+  });
+};
+
+const updateLocalUser = (localUser) => {
+  const docRef = doc(db, "localUsers", localUser.uid);
+  return updateDoc(docRef, {
+    name: localUser.name,
+    nickName: localUser.nickName,
+  });
+};
+
+export {
+  getUser,
+  addLocalUserApi,
+  addLocalUserInsideUserApi,
+  updateLocalUsersInsideUserApi,
+  updateLocalUser,
+};

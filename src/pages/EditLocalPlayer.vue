@@ -8,7 +8,7 @@
       <p class="p-title">Editar jugador</p>
       <div class="text-center">
         <q-icon name="assignment_ind" size="10em" />
-        <q-form @submit.prevent="createLocalPlayer()">
+        <q-form @submit.prevent="updateLocalPlayer()">
           <q-input
             v-model="name"
             label="Nombre *"
@@ -45,6 +45,11 @@
 
 <script>
 import { ref } from "vue";
+import { useBgsStore } from "../stores/bgs";
+import {
+  addLocalUserInsideUserApi,
+  updateLocalUsersInsideUserApi,
+} from "../../api/index";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
 
 export default {
@@ -59,13 +64,25 @@ export default {
     },
   },
   setup(props) {
+    const bgsStore = useBgsStore();
+
     const localPlayerParser = ref(JSON.parse(props.localPlayer));
     const name = ref(localPlayerParser.value.name);
     const nickName = ref(localPlayerParser.value.nickName);
 
+    const updateLocalPlayer = () => {
+      const localPlayerObject = {
+        name: name.value,
+        nickName: nickName.value,
+        uid: localPlayerParser.value.uid,
+      };
+      bgsStore.updateLocalUser({ ...localPlayerObject });
+    };
+
     return {
       name,
       nickName,
+      updateLocalPlayer,
     };
   },
 };

@@ -31,6 +31,12 @@ export const useBgsStore = defineStore("bgs", {
         this.user.localUsers = [...user];
       }
     },
+    updateLocalUser(user) {
+      let localUserIndex = this.user.localUsers.findIndex(
+        (localUser) => localUser.id === user.id
+      );
+      this.user.localUsers[localUserIndex] = user;
+    },
     setLoading(isLoading, message) {
       this.loading.isLoading = isLoading;
       this.loading.message = message;
