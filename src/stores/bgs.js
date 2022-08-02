@@ -33,7 +33,7 @@ export const useBgsStore = defineStore("bgs", {
     },
     updateLocalUser(user) {
       let localUserIndex = this.user.localUsers.findIndex(
-        (localUser) => localUser.id === user.id
+        (localUser) => localUser.uid === user.uid
       );
       this.user.localUsers[localUserIndex] = user;
     },

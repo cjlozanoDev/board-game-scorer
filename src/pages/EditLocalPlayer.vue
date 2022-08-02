@@ -46,10 +46,13 @@
 <script>
 import { ref } from "vue";
 import { useBgsStore } from "../stores/bgs";
+import { showLoading } from "../utils/loading";
+import { showNotify } from "src/utils/notify";
+import { useRouter } from "vue-router";
 import {
-  addLocalUserInsideUserApi,
+  updateLocalUserApi,
   updateLocalUsersInsideUserApi,
-} from "../../api/index";
+} from "../api/index";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
 
 export default {
@@ -65,18 +68,51 @@ export default {
   },
   setup(props) {
     const bgsStore = useBgsStore();
+    const router = useRouter();
 
     const localPlayerParser = ref(JSON.parse(props.localPlayer));
     const name = ref(localPlayerParser.value.name);
     const nickName = ref(localPlayerParser.value.nickName);
 
     const updateLocalPlayer = () => {
+      showLoading(true);
       const localPlayerObject = {
         name: name.value,
         nickName: nickName.value,
         uid: localPlayerParser.value.uid,
       };
       bgsStore.updateLocalUser({ ...localPlayerObject });
+
+      updateLocalUsersInsideUserApi(bgsStore.getUserData.localUsers)
+        .then(() => {
+          return updateLocalUserApi(localPlayerObject);
+        })
+        .then(() => {
+          showNotification({
+            message: "Se ha editado correctamente al jugador",
+            color: "secondary",
+          });
+          router.push({
+            path: "/localplayers",
+          });
+        })
+        .catch((error) => {
+          showNotification({
+            message:
+              "Ha habido un problema al editar el jugador, por favor, inténtalo de nuevo",
+            color: "negative",
+          });
+        })
+        .finally(() => {
+          showLoading(false);
+        });
+    };
+
+    const showNotification = ({ message, color }) => {
+      showNotify({
+        message,
+        color,
+      });
     };
 
     return {

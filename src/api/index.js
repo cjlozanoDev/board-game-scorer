@@ -39,7 +39,7 @@ const updateLocalUsersInsideUserApi = (localUsers) => {
   });
 };
 
-const updateLocalUser = (localUser) => {
+const updateLocalUserApi = (localUser) => {
   const docRef = doc(db, "localUsers", localUser.uid);
   return updateDoc(docRef, {
     name: localUser.name,
@@ -52,5 +52,5 @@ export {
   addLocalUserApi,
   addLocalUserInsideUserApi,
   updateLocalUsersInsideUserApi,
-  updateLocalUser,
+  updateLocalUserApi,
 };
