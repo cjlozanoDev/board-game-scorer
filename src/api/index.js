@@ -6,6 +6,7 @@ import {
   deleteDoc,
   collection,
   arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { auth, db } from "../api/firebase";
 
@@ -23,7 +24,7 @@ const addLocalUserApi = (localUser) => {
 };
 
 const removeLocalUserApi = (localUserId) => {
-  return deleteDoc(doc(db, "localUser", localUserId));
+  return deleteDoc(doc(db, "localUsers", localUserId));
 };
 
 const removeLocalUserInsideUserApi = (localUser) => {

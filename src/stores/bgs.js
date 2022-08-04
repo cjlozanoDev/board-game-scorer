@@ -32,10 +32,16 @@ export const useBgsStore = defineStore("bgs", {
       }
     },
     updateLocalUser(user) {
-      let localUserIndex = this.user.localUsers.findIndex(
+      const localUserIndex = this.user.localUsers.findIndex(
         (localUser) => localUser.uid === user.uid
       );
       this.user.localUsers[localUserIndex] = user;
+    },
+    removeLocalUser(user) {
+      const localUserIndex = this.user.localUsers.findIndex(
+        (localUser) => localUser.uid === user.uid
+      );
+      this.user.localUsers.splice(localUserIndex, 1);
     },
     setLoading(isLoading, message) {
       this.loading.isLoading = isLoading;

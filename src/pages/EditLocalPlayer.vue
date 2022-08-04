@@ -60,6 +60,8 @@ import { useRouter } from "vue-router";
 import {
   updateLocalUserApi,
   updateLocalUsersInsideUserApi,
+  removeLocalUserApi,
+  removeLocalUserInsideUserApi,
 } from "../api/index";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
 import DialogConfirm from "src/components/DialogConfirm.vue";
@@ -120,6 +122,34 @@ export default {
         });
     };
 
+    const removeLocalPlayer = () => {
+      showLoading(true);
+      bgsStore.removeLocalUser(localPlayerParser.value);
+      removeLocalUserInsideUserApi(localPlayerParser.value)
+        .then(() => {
+          return removeLocalUserApi(localPlayerParser.value.uid);
+        })
+        .then(() => {
+          showNotification({
+            message: "Se ha elimando correctamente al jugador",
+            color: "secondary",
+          });
+          router.push({
+            path: "/localplayers",
+          });
+        })
+        .catch((error) => {
+          showNotification({
+            message:
+              "Ha habido un problema al eliminar el jugador, por favor, inténtalo de nuevo",
+            color: "negative",
+          });
+        })
+        .finally(() => {
+          showLoading(false);
+        });
+    };
+
     const showDialogRemoveConfirm = () => {
       showDialog.value = true;
     };
@@ -130,6 +160,7 @@ export default {
 
     const confirm = () => {
       showDialog.value = false;
+      removeLocalPlayer();
     };
 
     const showNotification = ({ message, color }) => {
