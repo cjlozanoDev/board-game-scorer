@@ -3,6 +3,7 @@ import {
   getDoc,
   updateDoc,
   addDoc,
+  deleteDoc,
   collection,
   arrayUnion,
 } from "firebase/firestore";
@@ -18,6 +19,17 @@ const addLocalUserApi = (localUser) => {
     name: localUser.name,
     nickName: localUser.nickName,
     creatorUid: auth.currentUser.uid,
+  });
+};
+
+const removeLocalUserApi = (localUserId) => {
+  return deleteDoc(doc(db, "localUser", localUserId));
+};
+
+const removeLocalUserInsideUserApi = (localUser) => {
+  const docRef = doc(db, "users", auth.currentUser.uid);
+  return updateDoc(docRef, {
+    localUsers: arrayRemove(localUser),
   });
 };
 
@@ -52,5 +64,7 @@ export {
   addLocalUserApi,
   addLocalUserInsideUserApi,
   updateLocalUsersInsideUserApi,
+  removeLocalUserInsideUserApi,
   updateLocalUserApi,
+  removeLocalUserApi,
 };

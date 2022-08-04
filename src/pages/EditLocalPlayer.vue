@@ -31,6 +31,7 @@
           <div class="edit-local-player__actions">
             <ButtonBsg size="md" type="submit" label="Guardar cambios" />
             <ButtonBsg
+              @click="showDialogRemoveConfirm"
               size="md"
               label="Eliminar"
               icon-right="delete"
@@ -39,6 +40,13 @@
           </div>
         </q-form>
       </div>
+      <DialogConfirm
+        :show-dialog="showDialog"
+        icon="delete"
+        messageDialog="Va a eliminar este usuario, ¿Estás seguro que quieres hacerlo?"
+        @confirm="confirm"
+        @cancel="cancel"
+      />
     </q-page>
   </transition>
 </template>
@@ -54,11 +62,13 @@ import {
   updateLocalUsersInsideUserApi,
 } from "../api/index";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
+import DialogConfirm from "src/components/DialogConfirm.vue";
 
 export default {
   name: "EditLocalPlayer",
   components: {
     ButtonBsg,
+    DialogConfirm,
   },
   props: {
     localPlayer: {
@@ -73,6 +83,8 @@ export default {
     const localPlayerParser = ref(JSON.parse(props.localPlayer));
     const name = ref(localPlayerParser.value.name);
     const nickName = ref(localPlayerParser.value.nickName);
+
+    const showDialog = ref(false);
 
     const updateLocalPlayer = () => {
       showLoading(true);
@@ -108,6 +120,18 @@ export default {
         });
     };
 
+    const showDialogRemoveConfirm = () => {
+      showDialog.value = true;
+    };
+
+    const cancel = () => {
+      showDialog.value = false;
+    };
+
+    const confirm = () => {
+      showDialog.value = false;
+    };
+
     const showNotification = ({ message, color }) => {
       showNotify({
         message,
@@ -119,6 +143,10 @@ export default {
       name,
       nickName,
       updateLocalPlayer,
+      showDialogRemoveConfirm,
+      showDialog,
+      confirm,
+      cancel,
     };
   },
 };
