@@ -9,6 +9,7 @@ import {
   arrayRemove,
 } from "firebase/firestore";
 import { auth, db } from "../api/firebase";
+import { DateTime } from "luxon";
 
 const getUser = () => {
   const docRef = doc(db, "users", auth.currentUser.uid);
@@ -20,6 +21,7 @@ const addLocalUserApi = (localUser) => {
     name: localUser.name,
     nickName: localUser.nickName,
     creatorUid: auth.currentUser.uid,
+    created_at: DateTime.now().toLocaleString(DateTime.DATETIME_FULL),
   });
 };
 

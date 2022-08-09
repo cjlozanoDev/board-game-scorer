@@ -50,7 +50,7 @@ export default {
           showNotification({
             message:
               "Ha habido un problema al añadir al jugador, por favor, inténtalo de nuevo",
-            type: "negative",
+            color: "negative",
           });
         })
         .finally(() => {

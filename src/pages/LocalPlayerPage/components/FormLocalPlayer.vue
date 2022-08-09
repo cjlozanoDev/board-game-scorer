@@ -25,6 +25,7 @@
 
 <script>
 import { ref } from "vue";
+import { DateTime } from "luxon";
 import ButtonBsg from "src/components/elements/ButtonBgs.vue";
 
 export default {
@@ -40,6 +41,7 @@ export default {
       context.emit("create-local-player", {
         name: name.value,
         nickName: nickName.value,
+        created_at: DateTime.now().toLocaleString(DateTime.DATETIME_FULL),
       });
     };
 

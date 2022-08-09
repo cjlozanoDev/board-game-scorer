@@ -28,7 +28,7 @@ export const useBgsStore = defineStore("bgs", {
       if (this.user.localUsers) {
         this.user.localUsers.push(user);
       } else {
-        this.user.localUsers = [...user];
+        this.user.localUsers = [user];
       }
     },
     updateLocalUser(user) {

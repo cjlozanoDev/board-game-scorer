@@ -5,7 +5,7 @@
       { 'local-players--not-players': !localPlayers },
     ]"
   >
-    <div class="text-center" v-if="!localPlayers">
+    <div class="text-center" v-if="!localPlayers || !localPlayers.length">
       <q-icon name="supervised_user_circle" size="10em" />
       <h6>¡Aún no has creado ningún jugador!</h6>
       <p class="p-subtitle">
@@ -81,7 +81,7 @@ export default {
     const router = useRouter();
 
     const localPlayers = computed(() => {
-      return bgsStore.getUserData.localUsers;
+      return bgsStore.getUserData.localUsers || [];
     });
 
     const createNewPlayer = () => {

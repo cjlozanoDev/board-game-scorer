@@ -39,6 +39,7 @@ module.exports = configure(function (/* ctx */) {
       // 'fontawesome-v6',
       // 'eva-icons',
       "themify",
+      "material-icons-outlined",
       // 'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
