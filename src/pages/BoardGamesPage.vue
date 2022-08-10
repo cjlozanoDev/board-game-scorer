@@ -16,6 +16,7 @@
 import ButtonBgs from "src/components/elements/ButtonBgs.vue";
 import { computed } from "vue";
 import { useBgsStore } from "../stores/bgs";
+import { useRouter } from "vue-router";
 
 export default {
   name: "BoardGamesPage",
@@ -23,11 +24,17 @@ export default {
   setup() {
     const bgsStore = useBgsStore();
 
+    const router = useRouter();
+
     const userGames = computed(() => {
       return bgsStore.getUserData.userGames;
     });
 
-    const addNewGame = () => {};
+    const addNewGame = () => {
+      router.push({
+        name: "AddGame",
+      });
+    };
 
     return {
       userGames,

@@ -51,6 +51,16 @@ const routes = [
         },
         component: () => import("pages/BoardGamesPage.vue"),
       },
+      {
+        path: "addgame/",
+        name: "AddGame",
+        meta: {
+          nameHeader: "Añadir juego",
+          backButton: true,
+          backPagePath: "/boardgames",
+        },
+        component: () => import("pages/AddGame.vue"),
+      },
     ],
   },
   {
