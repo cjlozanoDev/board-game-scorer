@@ -5,7 +5,6 @@ html,
 body {
   width: 100%;
   margin: 0;
-  background: var(--color-tertiary-opacity);
 }
 .p-title {
   font-size: 2em;
