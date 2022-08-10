@@ -26,12 +26,25 @@
       >
         No se han encontrado juegos
       </div>
+      <div>
+        <q-list>
+          <q-item v-for="game in listGames" :key="game.id">
+            <q-item-section avatar>
+              <q-avatar rounded>
+                <img :src="game.thumb_url" />
+              </q-avatar>
+            </q-item-section>
+            <q-item-section>{{ game.name }}</q-item-section>
+          </q-item>
+        </q-list>
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
 import { ref } from "vue";
+import { searchGameApi } from "../api/board-game-atlas";
 
 export default {
   name: "AddGame",
@@ -41,7 +54,14 @@ export default {
     const listGames = ref([]);
 
     const searchGame = () => {
-      flagSearched.value = true;
+      searchGameApi({ name: gameName.value })
+        .then(({ data }) => {
+          listGames.value = data.games;
+          flagSearched.value = true;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
 
     return {
