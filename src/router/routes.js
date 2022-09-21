@@ -59,7 +59,7 @@ const routes = [
           backButton: true,
           backPagePath: "/boardgames",
         },
-        component: () => import("pages/AddGame.vue"),
+        component: () => import("pages/AddGame/AddGame.vue"),
       },
     ],
   },

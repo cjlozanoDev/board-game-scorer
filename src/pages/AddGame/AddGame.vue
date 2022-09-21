@@ -1,7 +1,7 @@
 <template>
-  <q-page class="add-game page-center-flex">
-    <p class="p-title">Buscar juego</p>
-    <div class="add-game__searcher">
+  <q-page :class="['add-game', { 'page-center-flex': !isShowAddGameBgg }]">
+    <div v-if="!isShowAddGameBgg" class="add-game__searcher">
+      <p class="p-title">Buscar juego</p>
       <q-input
         outlined
         bottom-slots
@@ -52,7 +52,12 @@
       </div>
       <div class="add-game__list-games">
         <q-list>
-          <q-item clickable v-for="game in listGames" :key="game.id">
+          <q-item
+            clickable
+            v-for="game in listGames"
+            :key="game.id"
+            @click="showComponentaddGameBgg(game)"
+          >
             <q-item-section avatar>
               <q-avatar rounded>
                 <img
@@ -76,21 +81,30 @@
         </q-list>
       </div>
     </div>
+    <div v-else>
+      <AddGameBgg :game-info="gameSelected" />
+    </div>
   </q-page>
 </template>
 
 <script>
+import AddGameBgg from "./components/AddGameBgg.vue";
 import { ref } from "vue";
-import { searchGameApi } from "../api/board-game-atlas";
+import { searchGameApi } from "../../api/board-game-atlas";
 
 export default {
   name: "AddGame",
+  components: {
+    AddGameBgg,
+  },
   setup() {
     const gameName = ref("");
     const flagSearched = ref(false);
     const listGames = ref([]);
     const debounce = ref(null);
     const showSpinner = ref(false);
+    const isShowAddGameBgg = ref(false);
+    const gameSelected = ref({});
 
     const searchGame = () => {
       showSpinner.value = true;
@@ -114,6 +128,11 @@ export default {
       }, 400);
     };
 
+    const showComponentaddGameBgg = (game) => {
+      gameSelected.value = game;
+      isShowAddGameBgg.value = true;
+    };
+
     const handlerError = (e) => {
       e.target.src = "";
     };
@@ -125,6 +144,9 @@ export default {
       showSpinner,
       searchGame,
       handlerError,
+      showComponentaddGameBgg,
+      isShowAddGameBgg,
+      gameSelected,
     };
   },
 };
