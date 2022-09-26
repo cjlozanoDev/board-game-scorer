@@ -1,6 +1,6 @@
 <template>
-  <q-page :class="['add-game', { 'page-center-flex': !isShowAddGameBgg }]">
-    <div v-if="!isShowAddGameBgg" class="add-game__searcher">
+  <q-page class="page-center-flex">
+    <div class="add-game__searcher">
       <p class="p-title">Buscar juego</p>
       <q-input
         outlined
@@ -81,30 +81,25 @@
         </q-list>
       </div>
     </div>
-    <div v-else>
-      <AddGameBgg :game-info="gameSelected" />
-    </div>
   </q-page>
 </template>
 
 <script>
-import AddGameBgg from "./components/AddGameBgg.vue";
 import { ref } from "vue";
 import { searchGameApi } from "../../api/board-game-atlas";
+import { useRouter } from "vue-router";
 
 export default {
   name: "AddGame",
-  components: {
-    AddGameBgg,
-  },
   setup() {
     const gameName = ref("");
     const flagSearched = ref(false);
     const listGames = ref([]);
     const debounce = ref(null);
     const showSpinner = ref(false);
-    const isShowAddGameBgg = ref(false);
     const gameSelected = ref({});
+
+    const router = useRouter();
 
     const searchGame = () => {
       showSpinner.value = true;
@@ -129,8 +124,17 @@ export default {
     };
 
     const showComponentaddGameBgg = (game) => {
-      gameSelected.value = game;
-      isShowAddGameBgg.value = true;
+      const gameObjet = {
+        name: game.name,
+        description: game.description,
+        thumb_url: game.thumb_url,
+      };
+      router.push({
+        name: "AddGameBgg",
+        params: {
+          gameInfo: JSON.stringify(gameObjet),
+        },
+      });
     };
 
     const handlerError = (e) => {
@@ -145,7 +149,6 @@ export default {
       searchGame,
       handlerError,
       showComponentaddGameBgg,
-      isShowAddGameBgg,
       gameSelected,
     };
   },
